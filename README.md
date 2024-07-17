@@ -1,7 +1,7 @@
-# CSK_Module_[MODULENAME]
+# CSK_Module_FlowConfig
 ## INFO: Draft version. Not further developed / tested so far! Check for available GitHub forks of this repository to see latest updates.
 
-Module / Application to provide [...] functionality.
+Module to provide the possibility to link input / output data of CSK modules in a graphical way.
 
 *If available, please also add a screenshot/gif of the UI of the module here placed within /docu/media/ (see code)*
 ![](./docu/media/UI_Screenshot.png)
@@ -9,7 +9,7 @@ Module / Application to provide [...] functionality.
 ## How to Run
 
 [***...please fill with informations...***]  
-For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_[MODULENAME]/main/docu/CSK_Module_[MODULENAME].html) in the folder "docu".
+For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_FlowConfig/main/docu/CSK_Module_FlowConfig.html) in the folder "docu".
 
 ## Information
 
@@ -30,4 +30,4 @@ Please check the [documentation](https://github.com/SICKAppSpaceCodingStarterKit
 
 ## Topics
 
-Coding Starter Kit, CSK, Module, SICK-AppSpace, [key_words]
+Coding Starter Kit, CSK, Module, SICK-AppSpace, Flow, Configuration, No Code, Low Code
