@@ -10,6 +10,9 @@ For further information check out the [documentation](https://raw.githack.com/SI
 
 ## Information
 
+**INFO for developers**  
+UI sources are not included in this repository.  
+
 Tested on:
 |Device|Firmware|Module version
 |--|--|--|
