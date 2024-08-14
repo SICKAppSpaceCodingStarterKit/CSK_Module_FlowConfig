@@ -6,15 +6,16 @@
         </crown>
         <crown name="CSK_FlowConfig">
             <trait>released</trait>
-            <desc>Please fill in information regarding: What is the idea of this module and its features? +
-How to use this module in general.... like: + 
-{empty} + 
-Typically the features of this module are used like this (check also main script of this module): +
-**1) Setup** +
-ToDo +
-{empty} + 
-**2) Something else...** +
-</desc>
+            <desc>Module to link features of CSK modules supporting the 'CSK FlowConfig'. +
+It makes use of a BlocksEditor within the UI to take care of the configuration. +
+{empty} +
+Check the UI of this CSK module to configure the system. +</desc>
+            <enum name="SaveMode" trait="released">
+                <desc>Mode of saving configuration</desc>
+                <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules available on the device to save their current configuration in PersistentData" name="ALL">ALL</item>
+                <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules used within the flow to save their current configuration in PersistentData" name="FLOW">FLOW</item>
+                <item desc="This will only save the configuration of the flow in PersistentData. Configurations done in other CSK modules need to be saved additionally" name="MODULE">MODULE</item>
+            </enum>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
                     <desc>Notify status if parameters should be loaded on app/device boot up.</desc>
@@ -47,15 +48,69 @@ ToDo +
                     <desc>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
+                <event name="OnNewFlow">
+                    <desc>Notify currently active flow.</desc>
+                    <param desc="Flow configuration." multiplicity="1" name="flow" type="string"/>
+                </event>
+                <event name="OnNewManifest">
+                    <desc>Notify available manifest for BlocksEditor.</desc>
+                    <param desc="Manifest" multiplicity="1" name="manifest" type="string"/>
+                </event>
+                <event name="OnClearOldFlow">
+                    <desc>Notify to clear all old flow config.</desc>
+                </event>
+                <event name="OnNewFlowConfig">
+                    <desc>Notify that new FlowConfig is available so that related modules can use it.</desc>
+                </event>
+                <event name="OnNewValue">
+                    <desc>Notify test value to trigger / debug FlowConfig</desc>
+                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Timestamp" multiplicity="1" name="timestamp" type="int"/>
+                </event>
+                <event name="OnNewStatusTriggerValue">
+                    <desc>Notify update for trigger value</desc>
+                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Cycle time (0 if single trigger)" multiplicity="1" name="cycleTime" type="int"/>
+                </event>
+                <event name="OnNewStatusSaveAllModulesAvailable">
+                    <desc>Notfiy if CSK_PersistentData module provides the feature to save all configs.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusFlowActiveUIInfo">
+                    <desc>Notify message on UI if saved flow was sucessfully loaded.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="string"/>
+                </event>
+                <event name="OnNewStatusCSKStyle">
+                    <desc>Notify status to use custom UI style.</desc>
+                    <param desc="Style" multiplicity="1" name="style" type="string"/>
+                </event>
+                <event name="OnNewStatusDemoFlow">
+                    <desc>Notify selected demo flow.</desc>
+                    <param desc="Name of flow." multiplicity="1" name="name" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleVersion">
+                    <desc>Notify version of module.</desc>
+                    <param desc="Version" multiplicity="1" name="version" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleIsActive">
+                    <desc>Notify if module can be used on device.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusInfoToggle">
+                    <desc>Notfiy status to show info in UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusSaveMode">
+                    <desc>Notify mode to save configurations.</desc>
+                    <param desc="Mode" multiplicity="1" name="mode" type="string"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
                 </function>
                 <function name="sendParameters">
                     <desc>Send parameters to CSK_PersistentData module if possible to save them.</desc>
-                </function>
-                <function name="loadParameters">
-                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <param desc="[Optional] Set to TRUE if the data should NOT be saved immediately after sending." multiplicity="?" name="noDataSave" type="bool"/>
                 </function>
                 <function name="setLoadOnReboot">
                     <desc>Configure if this module should load its saved parameters at app/device boot up.</desc>
@@ -65,10 +120,109 @@ ToDo +
                     <desc>Function to register "OnResume" of the module UI (only as helper function).</desc>
                     <return desc="Empty string (only needed to simplify binding)." multiplicity="1" name="empty" type="string"/>
                 </function>
+                <function name="getFlow">
+                    <desc>Function to process the provided flow received by the UI BlocksEditor.</desc>
+                    <param desc="Flow configuration as string." multiplicity="1" name="flow" type="string"/>
+                </function>
+                <function name="openUI">
+                    <desc>Function to get the trigger to open block UI.</desc>
+                    <param desc="Name of block related CROWN" multiplicity="1" name="nameOfBlock" type="string"/>
+                </function>
+                <function name="setTriggerValue">
+                    <desc>Function to set trigger value to send via 'OnNewValue' event.</desc>
+                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Cycle time in ms ('0' if single trigger)" multiplicity="1" name="cycleTime" type="int"/>
+                </function>
+                <function name="saveAllModuleConfigs">
+                    <desc>Function to trigger all CSK modules to save their configuration via CSK_PersistentData module and additionally activate their "Load config on app start"  flag.</desc>
+                </function>
+                <function name="saveFlowRelevantModuleConfigs">
+                    <desc>Function to trigger CSK modules used within the flow to save their configuration via CSK_PersistentData module and additionally activate their "Load config on app start"  flag.</desc>
+                </function>
+                <function name="reloadApps">
+                    <desc>Function to reload all apps.</desc>
+                </function>
+                <function name="setDemoFlow">
+                    <desc>Function to selecte demo flow to load.</desc>
+                    <param desc="Name of flow." multiplicity="1" name="flowName" type="string"/>
+                </function>
+                <function name="loadDemoFlow">
+                    <desc>Function to load demo flow.</desc>
+                </function>
+                <function name="stopTriggerTimer">
+                    <desc>Function to stop the timer of the 'OnNewValue' event.</desc>
+                </function>
+                <function name="loadParameters">
+                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <return desc="Success to load parameters." multiplicity="1" name="success" type="bool"/>
+                </function>
+                <function name="setInfoToggle">
+                    <desc>Function to set toggle status to show info in UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="setSaveMode">
+                    <desc>Function to set save mode for configurations.</desc>
+                    <param desc="Mode of saving method." multiplicity="1" name="mode" ref="CSK_FlowConfig.SaveMode" type="enum"/>
+                </function>
+                <function name="saveConfigViaUI">
+                    <desc>Function to save configuration. Method base on set save mode (see 'setSaveMode').</desc>
+                </function>
+                <function name="getParameters">
+                    <trait>released</trait>
+                    <desc>Function to get all parameters of the client in JSON format.</desc>
+                    <return desc="JSON string with all parameters." multiplicity="1" name="jsonParameters" type="string"/>
+                </function>
+                <function name="getStatusModuleActive">
+                    <desc>Function to get status if module is active.</desc>
+                    <return desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="resetModule">
+                    <desc>Function to reset main configuration of module.</desc>
+                </function>
             </serves>
         </crown>
+        <crown name="FlowConfig_FC">
+            <trait>released</trait>
+            <desc>Crown to provide CSK_FlowConfig relevant features.</desc>
+            <enum name="ValueType" trait="released">
+                <desc>Types of value to use.</desc>
+                <item desc="String" name="STRING">STRING</item>
+                <item desc="Number" name="NUMBER">NUMBER</item>
+                <item desc="Bool" name="BOOL">BOOL</item>
+            </enum>
+            <serves/>
+            <crown name="OnNewValue">
+                <trait>released</trait>
+                <desc>Provide values. Especially helpful for testing purposes.</desc>
+                <serves>
+                    <event name="OnNewValue">
+                        <include>data-flow</include>
+                        <desc>Provide values. Especially helpful for testing purposes.
+Will send current timestamp as 2nd parameter.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="'CSK_FlowConfig.OnNewValue'&#10;&#10;Parameter:&#10;1: Value (STRING or NUMBER or BOOL)&#10;2: Timestamp (INT)" multiplicity="1" name="OnNewValue" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Value to send via event.&#10;For 'BOOL' values use &quot;true&quot; or &quot;false&quot;" multiplicity="1" name="Value" type="string"/>
+                        <param desc="Type of value to send." multiplicity="1" name="ValueType" ref="FlowConfig_FC.ValueType" type="enum"/>
+                        <param desc="Cycle time in ms ('0' for single trigger)" multiplicity="1" name="CycleTime" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+        </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">0.1.0</meta>
+        <meta key="version">1.0.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

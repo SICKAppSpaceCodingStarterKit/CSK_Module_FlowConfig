@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
 <meta name="author" content="SICK AG">
-<title>Documentation - CSK_Module_FlowConfig 0.1.0</title>
+<title>Documentation - CSK_Module_FlowConfig 1.0.0</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
@@ -615,11 +615,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Documentation - CSK_Module_FlowConfig 0.1.0</h1>
+<h1>Documentation - CSK_Module_FlowConfig 1.0.0</h1>
 <div class="details">
 <span id="author" class="author">SICK AG</span><br>
-<span id="revnumber">version 0.1.0,</span>
-<span id="revdate">2024-07-17</span>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-08-14</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -633,18 +633,47 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#_overview">Overview</a></li>
 <li><a href="#_functions">Functions</a>
 <ul class="sectlevel4">
+<li><a href="#API:Function:CSK_FlowConfig.getFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">getFlow()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.getParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">getParameters()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.getStatusModuleActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">getStatusModuleActive()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.loadDemoFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">loadDemoFlow()</span></a></li>
 <li><a href="#API:Function:CSK_FlowConfig.loadParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">loadParameters()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.openUI"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">openUI()</span></a></li>
 <li><a href="#API:Function:CSK_FlowConfig.pageCalled"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">pageCalled()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.reloadApps"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">reloadApps()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.resetModule"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">resetModule()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.saveAllModuleConfigs"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">saveAllModuleConfigs()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.saveConfigViaUI"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">saveConfigViaUI()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.saveFlowRelevantModuleConfigs"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">saveFlowRelevantModuleConfigs()</span></a></li>
 <li><a href="#API:Function:CSK_FlowConfig.sendParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">sendParameters()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.setDemoFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setDemoFlow()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.setInfoToggle"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setInfoToggle()</span></a></li>
 <li><a href="#API:Function:CSK_FlowConfig.setLoadOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setLoadOnReboot()</span></a></li>
 <li><a href="#API:Function:CSK_FlowConfig.setParameterName"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setParameterName()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.setSaveMode"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setSaveMode()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.setTriggerValue"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setTriggerValue()</span></a></li>
+<li><a href="#API:Function:CSK_FlowConfig.stopTriggerTimer"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">stopTriggerTimer()</span></a></li>
 </ul>
 </li>
 <li><a href="#_events">Events</a>
 <ul class="sectlevel4">
+<li><a href="#API:Event:CSK_FlowConfig.OnClearOldFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnClearOldFlow</span></a></li>
 <li><a href="#API:Event:CSK_FlowConfig.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnDataLoadedOnReboot</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewFlow</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewFlowConfig"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewFlowConfig</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewManifest"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewManifest</span></a></li>
 <li><a href="#API:Event:CSK_FlowConfig.OnNewParameterName"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewParameterName</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusCSKStyle"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusCSKStyle</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusDemoFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusDemoFlow</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusFlowActiveUIInfo"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusFlowActiveUIInfo</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusInfoToggle"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusInfoToggle</span></a></li>
 <li><a href="#API:Event:CSK_FlowConfig.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusModuleIsActive</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusModuleVersion"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusModuleVersion</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusSaveAllModulesAvailable"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusSaveAllModulesAvailable</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusSaveMode"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusSaveMode</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewStatusTriggerValue"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusTriggerValue</span></a></li>
+<li><a href="#API:Event:CSK_FlowConfig.OnNewValue"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewValue</span></a></li>
 <li><a href="#API:Event:CSK_FlowConfig.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnPersistentDataModuleAvailable</span></a></li>
 <li><a href="#API:Event:CSK_FlowConfig.OnUserLevelAdminActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelAdminActive</span></a></li>
 <li><a href="#API:Event:CSK_FlowConfig.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelMaintenanceActive</span></a></li>
@@ -656,9 +685,38 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </li>
 <li><a href="#API:Crown:CSK_Module_FlowConfig"><span class="api-crown">CSK_Module_FlowConfig</span></a>
 <ul class="sectlevel3">
-<li><a href="#_short_description_15">Short description</a></li>
+<li><a href="#_short_description_44">Short description</a></li>
 </ul>
 </li>
+<li><a href="#API:Crown:FlowConfig_FC"><span class="api-crown">FlowConfig_FC</span></a>
+<ul class="sectlevel3">
+<li><a href="#_short_description_45">Short description</a></li>
+<li><a href="#_overview_2">Overview</a></li>
+</ul>
+</li>
+<li><a href="#API:Crown:FlowConfig_FC.OnNewValue"><span class="api-crown">FlowConfig_FC.OnNewValue</span></a>
+<ul class="sectlevel3">
+<li><a href="#_short_description_46">Short description</a></li>
+<li><a href="#_overview_3">Overview</a></li>
+<li><a href="#_functions_2">Functions</a>
+<ul class="sectlevel4">
+<li><a href="#API:Function:FlowConfig_FC.OnNewValue.create"><span class="breadcrumb">FlowConfig_FC.OnNewValue.</span><span class="api-function">create()</span></a></li>
+<li><a href="#API:Function:FlowConfig_FC.OnNewValue.register"><span class="breadcrumb">FlowConfig_FC.OnNewValue.</span><span class="api-function">register()</span></a></li>
+</ul>
+</li>
+<li><a href="#_events_2">Events</a>
+<ul class="sectlevel4">
+<li><a href="#API:Event:FlowConfig_FC.OnNewValue.OnNewValue"><span class="breadcrumb">FlowConfig_FC.OnNewValue.</span><span class="api-event">OnNewValue</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_enumerations">Enumerations</a>
+<ul class="sectlevel2">
+<li><a href="#API:Enum:CSK_FlowConfig.SaveMode"><span class="api-enum">CSK_FlowConfig.SaveMode</span></a></li>
+<li><a href="#API:Enum:FlowConfig_FC.ValueType"><span class="api-enum">FlowConfig_FC.ValueType</span></a></li>
 </ul>
 </li>
 </ul>
@@ -680,11 +738,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Version</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Date</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2024-07-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024-08-14</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Author</p></th>
@@ -712,6 +770,19 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </ul>
 </div>
 </dd>
+<dt class="hdlist1">F</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Crown:FlowConfig_FC">FlowConfig_FC</a></p>
+</li>
+<li>
+<p><a href="#API:Crown:FlowConfig_FC.OnNewValue">FlowConfig_FC.OnNewValue</a></p>
+</li>
+</ul>
+</div>
+</dd>
 </dl>
 </div>
 <div class="sect2">
@@ -719,14 +790,10 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <div class="sect3">
 <h4 id="_short_description">Short description</h4>
 <div class="paragraph">
-<p>Please fill in information regarding: What is the idea of this module and its features?<br>
-How to use this module in general&#8230;&#8203;. like:<br>
+<p>Module to link features of CSK modules supporting the 'CSK FlowConfig'.<br>
+It makes use of a BlocksEditor within the UI to take care of the configuration.<br>
 <br>
-Typically the features of this module are used like this (check also main script of this module):<br>
-<strong>1) Setup</strong><br>
-ToDo<br>
-<br>
-<strong>2) Something else&#8230;&#8203;</strong><br></p>
+Check the UI of this CSK module to configure the system.<br></p>
 </div>
 </div>
 <div class="sect3">
@@ -734,13 +801,49 @@ ToDo<br>
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#API:Function:CSK_FlowConfig.getFlow">getFlow()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.getParameters">getParameters()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.getStatusModuleActive">getStatusModuleActive()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.loadDemoFlow">loadDemoFlow()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_FlowConfig.loadParameters">loadParameters()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.openUI">openUI()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_FlowConfig.pageCalled">pageCalled()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_FlowConfig.reloadApps">reloadApps()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.resetModule">resetModule()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.saveAllModuleConfigs">saveAllModuleConfigs()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.saveConfigViaUI">saveConfigViaUI()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.saveFlowRelevantModuleConfigs">saveFlowRelevantModuleConfigs()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_FlowConfig.sendParameters">sendParameters()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.setDemoFlow">setDemoFlow()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.setInfoToggle">setInfoToggle()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_FlowConfig.setLoadOnReboot">setLoadOnReboot()</a></p>
@@ -749,13 +852,64 @@ ToDo<br>
 <p><a href="#API:Function:CSK_FlowConfig.setParameterName">setParameterName()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_FlowConfig.setSaveMode">setSaveMode()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.setTriggerValue">setTriggerValue()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_FlowConfig.stopTriggerTimer">stopTriggerTimer()</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnClearOldFlow">OnClearOldFlow</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_FlowConfig.OnDataLoadedOnReboot">OnDataLoadedOnReboot</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewFlow">OnNewFlow</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewFlowConfig">OnNewFlowConfig</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewManifest">OnNewManifest</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_FlowConfig.OnNewParameterName">OnNewParameterName</a></p>
 </li>
 <li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusCSKStyle">OnNewStatusCSKStyle</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusDemoFlow">OnNewStatusDemoFlow</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusFlowActiveUIInfo">OnNewStatusFlowActiveUIInfo</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusInfoToggle">OnNewStatusInfoToggle</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_FlowConfig.OnNewStatusLoadParameterOnReboot">OnNewStatusLoadParameterOnReboot</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusModuleIsActive">OnNewStatusModuleIsActive</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusModuleVersion">OnNewStatusModuleVersion</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusSaveAllModulesAvailable">OnNewStatusSaveAllModulesAvailable</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusSaveMode">OnNewStatusSaveMode</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewStatusTriggerValue">OnNewStatusTriggerValue</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FlowConfig.OnNewValue">OnNewValue</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_FlowConfig.OnPersistentDataModuleAvailable">OnPersistentDataModuleAvailable</a></p>
@@ -778,18 +932,238 @@ ToDo<br>
 <div class="sect3">
 <h4 id="_functions">Functions</h4>
 <div class="sect4">
-<h5 id="API:Function:CSK_FlowConfig.loadParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">loadParameters()</span></h5>
+<h5 id="API:Function:CSK_FlowConfig.getFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">getFlow()</span></h5>
 <div class="sect5">
 <h6 id="_short_description_2">Short description</h6>
 <div class="paragraph">
-<p>Load parameters for this module from the CSK_PersistentData module if possible and use them.</p>
+<p>Function to process the provided flow received by the UI BlocksEditor.</p>
 </div>
+</div>
+<div class="sect5">
+<h6 id="_parameters">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">flow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Flow configuration as string.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect5">
 <h6 id="_sample_auto_generated">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.loadParameters()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.getFlow(flow)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.getParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">getParameters()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_3">Short description</h6>
+<div class="paragraph">
+<p>Function to get all parameters of the client in JSON format.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_values">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jsonParameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON string with all parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_2">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">jsonParameters = CSK_FlowConfig.getParameters()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.getStatusModuleActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">getStatusModuleActive()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_4">Short description</h6>
+<div class="paragraph">
+<p>Function to get status if module is active.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_values_2">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_3">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">status = CSK_FlowConfig.getStatusModuleActive()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.loadDemoFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">loadDemoFlow()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_5">Short description</h6>
+<div class="paragraph">
+<p>Function to load demo flow.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_4">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.loadDemoFlow()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.loadParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">loadParameters()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_6">Short description</h6>
+<div class="paragraph">
+<p>Load parameters for this module from the CSK_PersistentData module if possible and use them.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_values_3">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Success to load parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_5">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">success = CSK_FlowConfig.loadParameters()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.openUI"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">openUI()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_7">Short description</h6>
+<div class="paragraph">
+<p>Function to get the trigger to open block UI.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_2">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nameOfBlock</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of block related CROWN</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_6">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.openUI(nameOfBlock)</code></pre>
 </div>
 </div>
 </div>
@@ -797,13 +1171,13 @@ ToDo<br>
 <div class="sect4">
 <h5 id="API:Function:CSK_FlowConfig.pageCalled"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">pageCalled()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_3">Short description</h6>
+<h6 id="_short_description_8">Short description</h6>
 <div class="paragraph">
 <p>Function to register "OnResume" of the module UI (only as helper function).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_return_values">Return values</h6>
+<h6 id="_return_values_4">Return values</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -830,7 +1204,7 @@ ToDo<br>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_2">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_7">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">empty = CSK_FlowConfig.pageCalled()</code></pre>
@@ -839,32 +1213,188 @@ ToDo<br>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Function:CSK_FlowConfig.sendParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">sendParameters()</span></h5>
+<h5 id="API:Function:CSK_FlowConfig.reloadApps"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">reloadApps()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_4">Short description</h6>
+<h6 id="_short_description_9">Short description</h6>
 <div class="paragraph">
-<p>Send parameters to CSK_PersistentData module if possible to save them.</p>
+<p>Function to reload all apps.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_3">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.sendParameters()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.reloadApps()</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Function:CSK_FlowConfig.setLoadOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setLoadOnReboot()</span></h5>
+<h5 id="API:Function:CSK_FlowConfig.resetModule"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">resetModule()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_5">Short description</h6>
+<h6 id="_short_description_10">Short description</h6>
 <div class="paragraph">
-<p>Configure if this module should load its saved parameters at app/device boot up.</p>
+<p>Function to reset main configuration of module.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters">Parameters</h6>
+<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.resetModule()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.saveAllModuleConfigs"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">saveAllModuleConfigs()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_11">Short description</h6>
+<div class="paragraph">
+<p>Function to trigger all CSK modules to save their configuration via CSK_PersistentData module and additionally activate their "Load config on app start"  flag.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.saveAllModuleConfigs()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.saveConfigViaUI"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">saveConfigViaUI()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_12">Short description</h6>
+<div class="paragraph">
+<p>Function to save configuration. Method base on set save mode (see 'setSaveMode').</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.saveConfigViaUI()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.saveFlowRelevantModuleConfigs"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">saveFlowRelevantModuleConfigs()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_13">Short description</h6>
+<div class="paragraph">
+<p>Function to trigger CSK modules used within the flow to save their configuration via CSK_PersistentData module and additionally activate their "Load config on app start"  flag.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.saveFlowRelevantModuleConfigs()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.sendParameters"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">sendParameters()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_14">Short description</h6>
+<div class="paragraph">
+<p>Send parameters to CSK_PersistentData module if possible to save them.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_3">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">noDataSave</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[Optional] Set to TRUE if the data should NOT be saved immediately after sending.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.sendParameters(noDataSave)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.setDemoFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setDemoFlow()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_15">Short description</h6>
+<div class="paragraph">
+<p>Function to selecte demo flow to load.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_4">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">flowName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of flow.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.setDemoFlow(flowName)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.setInfoToggle"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setInfoToggle()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_16">Short description</h6>
+<div class="paragraph">
+<p>Function to set toggle status to show info in UI.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_5">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -891,7 +1421,51 @@ ToDo<br>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_4">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.setInfoToggle(status)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.setLoadOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setLoadOnReboot()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_17">Short description</h6>
+<div class="paragraph">
+<p>Configure if this module should load its saved parameters at app/device boot up.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_6">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.setLoadOnReboot(status)</code></pre>
@@ -902,13 +1476,13 @@ ToDo<br>
 <div class="sect4">
 <h5 id="API:Function:CSK_FlowConfig.setParameterName"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setParameterName()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_6">Short description</h6>
+<h6 id="_short_description_18">Short description</h6>
 <div class="paragraph">
 <p>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_2">Parameters</h6>
+<h6 id="_parameters_7">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -935,10 +1509,122 @@ ToDo<br>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_5">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.setParameterName(name)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.setSaveMode"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setSaveMode()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_19">Short description</h6>
+<div class="paragraph">
+<p>Function to set save mode for configurations.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_8">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ENUM<br>
+<a href="#API:Enum:CSK_FlowConfig.SaveMode">CSK_FlowConfig.SaveMode</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mode of saving method.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.setSaveMode(mode)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.setTriggerValue"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">setTriggerValue()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_20">Short description</h6>
+<div class="paragraph">
+<p>Function to set trigger value to send via 'OnNewValue' event.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_9">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cycleTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cycle time in ms ('0' if single trigger)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.setTriggerValue(value, cycleTime)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FlowConfig.stopTriggerTimer"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-function">stopTriggerTimer()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_21">Short description</h6>
+<div class="paragraph">
+<p>Function to stop the timer of the 'OnNewValue' event.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FlowConfig.stopTriggerTimer()</code></pre>
 </div>
 </div>
 </div>
@@ -947,15 +1633,36 @@ ToDo<br>
 <div class="sect3">
 <h4 id="_events">Events</h4>
 <div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnClearOldFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnClearOldFlow</span></h5>
+<div class="sect5">
+<h6 id="_short_description_22">Short description</h6>
+<div class="paragraph">
+<p>Notify to clear all old flow config.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnClearOldFlow</span>()
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnClearOldFlow</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnClearOldFlow</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Event:CSK_FlowConfig.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnDataLoadedOnReboot</span></h5>
 <div class="sect5">
-<h6 id="_short_description_7">Short description</h6>
+<h6 id="_short_description_23">Short description</h6>
 <div class="paragraph">
 <p>Event to call if module tried to load parameters and should be ready.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_6">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnDataLoadedOnReboot</span>()
@@ -968,15 +1675,132 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewFlow</span></h5>
+<div class="sect5">
+<h6 id="_short_description_24">Short description</h6>
+<div class="paragraph">
+<p>Notify currently active flow.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">flow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Flow configuration.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewFlow</span>(flow)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewFlow</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewFlow</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewFlowConfig"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewFlowConfig</span></h5>
+<div class="sect5">
+<h6 id="_short_description_25">Short description</h6>
+<div class="paragraph">
+<p>Notify that new FlowConfig is available so that related modules can use it.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewFlowConfig</span>()
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewFlowConfig</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewFlowConfig</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewManifest"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewManifest</span></h5>
+<div class="sect5">
+<h6 id="_short_description_26">Short description</h6>
+<div class="paragraph">
+<p>Notify available manifest for BlocksEditor.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_2">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manifest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manifest</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_25">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewManifest</span>(manifest)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewManifest</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewManifest</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Event:CSK_FlowConfig.OnNewParameterName"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewParameterName</span></h5>
 <div class="sect5">
-<h6 id="_short_description_8">Short description</h6>
+<h6 id="_short_description_27">Short description</h6>
 <div class="paragraph">
 <p>Notify name of persistent data parameter.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments">Callback arguments</h6>
+<h6 id="_callback_arguments_3">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1003,7 +1827,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_7">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_26">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewParameterName</span>(name)
@@ -1016,107 +1840,11 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FlowConfig.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusCSKStyle"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusCSKStyle</span></h5>
 <div class="sect5">
-<h6 id="_short_description_9">Short description</h6>
+<h6 id="_short_description_28">Short description</h6>
 <div class="paragraph">
-<p>Notify status if parameters should be loaded on app/device boot up.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_2">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FlowConfig.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnPersistentDataModuleAvailable</span></h5>
-<div class="sect5">
-<h6 id="_short_description_10">Short description</h6>
-<div class="paragraph">
-<p>Notify status if features of CSK_PersistendData module are available.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_3">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FlowConfig.OnUserLevelAdminActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
-<div class="sect5">
-<h6 id="_short_description_11">Short description</h6>
-<div class="paragraph">
-<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify status to use custom UI style.</p>
 </div>
 </div>
 <div class="sect5">
@@ -1138,33 +1866,33 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">style</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Style</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_27">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusCSKStyle</span>(style)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusCSKStyle</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusCSKStyle</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FlowConfig.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusDemoFlow"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusDemoFlow</span></h5>
 <div class="sect5">
-<h6 id="_short_description_12">Short description</h6>
+<h6 id="_short_description_29">Short description</h6>
 <div class="paragraph">
-<p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify selected demo flow.</p>
 </div>
 </div>
 <div class="sect5">
@@ -1186,33 +1914,33 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of flow.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_28">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusDemoFlow</span>(name)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusDemoFlow</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusDemoFlow</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FlowConfig.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusFlowActiveUIInfo"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusFlowActiveUIInfo</span></h5>
 <div class="sect5">
-<h6 id="_short_description_13">Short description</h6>
+<h6 id="_short_description_30">Short description</h6>
 <div class="paragraph">
-<p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify message on UI if saved flow was sucessfully loaded.</p>
 </div>
 </div>
 <div class="sect5">
@@ -1235,7 +1963,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
 </tr>
@@ -1243,24 +1971,24 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_29">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFlowActiveUIInfo</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusFlowActiveUIInfo</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFlowActiveUIInfo</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FlowConfig.OnUserLevelServiceActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusInfoToggle"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusInfoToggle</span></h5>
 <div class="sect5">
-<h6 id="_short_description_14">Short description</h6>
+<h6 id="_short_description_31">Short description</h6>
 <div class="paragraph">
-<p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notfiy status to show info in UI.</p>
 </div>
 </div>
 <div class="sect5">
@@ -1291,7 +2019,595 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_30">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusInfoToggle</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusInfoToggle</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusInfoToggle</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
+<div class="sect5">
+<h6 id="_short_description_32">Short description</h6>
+<div class="paragraph">
+<p>Notify status if parameters should be loaded on app/device boot up.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_8">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_31">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusModuleIsActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_33">Short description</h6>
+<div class="paragraph">
+<p>Notify if module can be used on device.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_9">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_32">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleIsActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusModuleVersion"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusModuleVersion</span></h5>
+<div class="sect5">
+<h6 id="_short_description_34">Short description</h6>
+<div class="paragraph">
+<p>Notify version of module.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_10">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_33">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleVersion</span>(version)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusModuleVersion</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleVersion</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusSaveAllModulesAvailable"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusSaveAllModulesAvailable</span></h5>
+<div class="sect5">
+<h6 id="_short_description_35">Short description</h6>
+<div class="paragraph">
+<p>Notfiy if CSK_PersistentData module provides the feature to save all configs.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_11">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_34">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusSaveAllModulesAvailable</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusSaveAllModulesAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusSaveAllModulesAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusSaveMode"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusSaveMode</span></h5>
+<div class="sect5">
+<h6 id="_short_description_36">Short description</h6>
+<div class="paragraph">
+<p>Notify mode to save configurations.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_12">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mode</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_35">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusSaveMode</span>(mode)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusSaveMode</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusSaveMode</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewStatusTriggerValue"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewStatusTriggerValue</span></h5>
+<div class="sect5">
+<h6 id="_short_description_37">Short description</h6>
+<div class="paragraph">
+<p>Notify update for trigger value</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_13">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cycleTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cycle time (0 if single trigger)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_36">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusTriggerValue</span>(value, cycleTime)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewStatusTriggerValue</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusTriggerValue</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnNewValue"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnNewValue</span></h5>
+<div class="sect5">
+<h6 id="_short_description_38">Short description</h6>
+<div class="paragraph">
+<p>Notify test value to trigger / debug FlowConfig</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_14">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timestamp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timestamp</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_37">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewValue</span>(value, timestamp)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnNewValue</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewValue</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnPersistentDataModuleAvailable</span></h5>
+<div class="sect5">
+<h6 id="_short_description_39">Short description</h6>
+<div class="paragraph">
+<p>Notify status if features of CSK_PersistendData module are available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_15">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_38">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnUserLevelAdminActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_40">Short description</h6>
+<div class="paragraph">
+<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_16">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_39">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_41">Short description</h6>
+<div class="paragraph">
+<p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_17">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_40">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_42">Short description</h6>
+<div class="paragraph">
+<p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_18">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_41">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FlowConfig.OnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FlowConfig.OnUserLevelServiceActive"><span class="breadcrumb">CSK_FlowConfig.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_43">Short description</h6>
+<div class="paragraph">
+<p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_19">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_42">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelServiceActive</span>(status)
@@ -1308,19 +2624,394 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect2">
 <h3 id="API:Crown:CSK_Module_FlowConfig"><span class="api-crown">CSK_Module_FlowConfig</span></h3>
 <div class="sect3">
-<h4 id="_short_description_15">Short description</h4>
+<h4 id="_short_description_44">Short description</h4>
 <div class="paragraph">
 <p>This is an automatically generated CROWN (description not necessary).</p>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="API:Crown:FlowConfig_FC"><span class="api-crown">FlowConfig_FC</span></h3>
+<div class="sect3">
+<h4 id="_short_description_45">Short description</h4>
+<div class="paragraph">
+<p>Crown to provide CSK_FlowConfig relevant features.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_overview_2">Overview</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="API:Crown:FlowConfig_FC.OnNewValue"><span class="api-crown">FlowConfig_FC.OnNewValue</span></h3>
+<div class="sect3">
+<h4 id="_short_description_46">Short description</h4>
+<div class="paragraph">
+<p>Provide values. Especially helpful for testing purposes.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_overview_3">Overview</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Function:FlowConfig_FC.OnNewValue.create">create()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:FlowConfig_FC.OnNewValue.register">register()</a></p>
+</li>
+<li>
+<p><a href="#API:Event:FlowConfig_FC.OnNewValue.OnNewValue">OnNewValue</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_2">Functions</h4>
+<div class="sect4">
+<h5 id="API:Function:FlowConfig_FC.OnNewValue.create"><span class="breadcrumb">FlowConfig_FC.OnNewValue.</span><span class="api-function">create()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_47">Short description</h6>
+<div class="paragraph">
+<p>Internally used CSK_FlowConfig create function.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_10">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value to send via event.
+For 'BOOL' values use "true" or "false"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ValueType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ENUM<br>
+<a href="#API:Enum:FlowConfig_FC.ValueType">FlowConfig_FC.ValueType</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of value to send.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CycleTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cycle time in ms ('0' for single trigger)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_return_values_5">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_43">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">handle = FlowConfig_FC.OnNewValue.create(Value, ValueType, CycleTime)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:FlowConfig_FC.OnNewValue.register"><span class="breadcrumb">FlowConfig_FC.OnNewValue.</span><span class="api-function">register()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_48">Short description</h6>
+<div class="paragraph">
+<p>Internally used CSK_FlowConfig register function.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_11">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eventname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal parameter (not used).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">callback</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internally used callback function.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_return_values_6">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Success of register process.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_44">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">success = FlowConfig_FC.OnNewValue.register(handle, eventname, callback)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_events_2">Events</h4>
+<div class="sect4">
+<h5 id="API:Event:FlowConfig_FC.OnNewValue.OnNewValue"><span class="breadcrumb">FlowConfig_FC.OnNewValue.</span><span class="api-event">OnNewValue</span></h5>
+<div class="sect5">
+<h6 id="_short_description_49">Short description</h6>
+<div class="paragraph">
+<p>Provide values. Especially helpful for testing purposes.
+Will send current timestamp as 2nd parameter.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_20">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OnNewValue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'CSK_FlowConfig.OnNewValue'
+Parameter:
+1: Value (STRING or NUMBER or BOOL)
+2: Timestamp (INT)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_45">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewValue</span>(handle, OnNewValue)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">FlowConfig_FC.OnNewValue.OnNewValue</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewValue</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enumerations">Enumerations</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">C</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Enum:CSK_FlowConfig.SaveMode">CSK_FlowConfig.SaveMode</a></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">F</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Enum:FlowConfig_FC.ValueType">FlowConfig_FC.ValueType</a></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="API:Enum:CSK_FlowConfig.SaveMode"><span class="api-enum">CSK_FlowConfig.SaveMode</span></h3>
+<div class="paragraph">
+<p>Mode of saving configuration</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Items</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>ALL</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ALL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This will save the configuration of the flow and additionally triggers for all CSK modules available on the device to save their current configuration in PersistentData</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>FLOW</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This will save the configuration of the flow and additionally triggers for all CSK modules used within the flow to save their current configuration in PersistentData</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>MODULE</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MODULE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This will only save the configuration of the flow in PersistentData. Configurations done in other CSK modules need to be saved additionally</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="API:Enum:FlowConfig_FC.ValueType"><span class="api-enum">FlowConfig_FC.ValueType</span></h3>
+<div class="paragraph">
+<p>Types of value to use.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Items</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>STRING</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>NUMBER</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NUMBER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>BOOL</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bool</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.1.0<br>
-Last updated 2024-07-17 13:06:47 +0200
+Version 1.0.0<br>
+Last updated 2024-08-14 14:23:04 +0200
 </div>
 </div>
 <script type="text/javascript">
