@@ -299,7 +299,7 @@ local function loadDemoFlow()
 
     Script.callFunctionAsync('CSK_RecipeManager.loadRecipe', flowConfig_Model.demoFlow)
   else
-    _G.logger:warning(nameOfModule .. ': CSK_RecipeManager is missing. Not able to load DemoFlows.')
+    _G.logger:warning(nameOfModule .. ': Modules CSK_RecipeManager / CSK_Commands / CSK_PersistentData needed. Not able to load DemoFlows.')
   end
 end
 Script.serveFunction('CSK_FlowConfig.loadDemoFlow', loadDemoFlow)

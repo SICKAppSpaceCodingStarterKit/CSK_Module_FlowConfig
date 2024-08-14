@@ -8,6 +8,14 @@ Module to provide the possibility to link input / output data of CSK modules in 
 
 For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_FlowConfig/main/docu/CSK_Module_FlowConfig.html) in the folder "docu".
 
+### Dependencies
+
+|Module|Version|Remark
+|--|--|--|
+|CSK_Module_Commands|[>=V1.0.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_Commands)|Necessary to load DemoFlows
+|CSK_Module_RecipeManager|[>=V1.0.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_RecipeManager)|Necessary to load DemoFlows
+|CSK_Module_PersistentData|[>=V4.1.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_PersistentData)|Necessary to load DemoFlows
+
 ## Information
 
 **INFO for developers**  

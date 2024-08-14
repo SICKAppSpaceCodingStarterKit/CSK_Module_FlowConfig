@@ -40,6 +40,8 @@ end
 -- Function to check for CSK_RecipeManager feature
 local function loadRecipeAPIs()
   CSK_RecipeManager = require 'API.CSK_RecipeManager'
+  CSK_Commands = require 'API.CSK_Commands'
+  CSK_PersistentData = require 'API.CSK_PersistentData'
 end
 
 availableAPIs.default = xpcall(loadAPIs, debug.traceback) -- TRUE if all default APIs were loaded correctly
