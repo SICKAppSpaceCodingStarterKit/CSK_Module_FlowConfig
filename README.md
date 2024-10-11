@@ -10,11 +10,11 @@ For further information check out the [documentation](https://raw.githack.com/SI
 
 ### Dependencies
 
-|Module|Version|Remark
+|Module|Version|Remark|
 |--|--|--|
-|CSK_Module_Commands|[>=V1.0.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_Commands)|Necessary to load DemoFlows
-|CSK_Module_RecipeManager|[>=V1.0.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_RecipeManager)|Necessary to load DemoFlows
-|CSK_Module_PersistentData|[>=V4.1.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_PersistentData)|Necessary to load DemoFlows
+|CSK_Module_Commands|[>=V1.0.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_Commands)|Necessary to load DemoFlows|
+|CSK_Module_RecipeManager|[>=V1.0.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_RecipeManager)|Necessary to load DemoFlows|
+|CSK_Module_PersistentData|[>=V4.1.0](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_PersistentData)|Necessary to load DemoFlows|
 
 ## Information
 
@@ -22,7 +22,7 @@ For further information check out the [documentation](https://raw.githack.com/SI
 UI sources are not included in this repository.  
 
 Tested on:
-|Device|Firmware|Module version
+|Device|Firmware|Module version|
 |--|--|--|
 |SICK AppEngine|V1.7.0|V1.0.0|
 |SIM1012|V2.4.2|V1.0.0|

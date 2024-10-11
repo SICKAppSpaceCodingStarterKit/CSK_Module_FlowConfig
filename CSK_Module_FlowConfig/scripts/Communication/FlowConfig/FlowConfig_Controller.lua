@@ -30,6 +30,9 @@ local tmrUIMessage = Timer.create()
 tmrUIMessage:setExpirationTime(3000)
 tmrUIMessage:setPeriodic(false)
 
+-- Check if it was able to load demo flow
+local demoFlowNotAvailable = false
+
 -- Reference to global handle
 local flowConfig_Model
 
@@ -131,8 +134,13 @@ local function handleOnExpiredTmrFlowConfig()
 
   updateUserLevel()
 
-  Script.notifyEvent("FlowConfig_OnNewStatusFlowActiveUIInfo", 'empty')
-  Script.notifyEvent("FlowConfig_OnNewStatusModuleVersion", flowConfig_Model.version)
+  if demoFlowNotAvailable then
+    demoFlowNotAvailable = false
+    Script.notifyEvent("FlowConfig_OnNewStatusFlowActiveUIInfo", 'error')
+  else
+    Script.notifyEvent("FlowConfig_OnNewStatusFlowActiveUIInfo", 'empty')
+  end
+  Script.notifyEvent("FlowConfig_OnNewStatusModuleVersion", 'v' .. flowConfig_Model.version)
   Script.notifyEvent("FlowConfig_OnNewStatusCSKStyle", flowConfig_Model.styleForUI)
   Script.notifyEvent("FlowConfig_OnNewStatusModuleIsActive", _G.availableAPIs.default and _G.availableAPIs.specific)
 
@@ -281,25 +289,45 @@ end
 Script.serveFunction('CSK_FlowConfig.setDemoFlow', setDemoFlow)
 
 local function loadDemoFlow()
-  if _G.availableAPIs.recipe then
-    _G.logger:fine(nameOfModule .. ': Load demo flow')
 
-    if not File.exists('public/FlowConfigDemo') then
-      File.mkdir('public/FlowConfigDemo')
+  -- Check if all relevant modules of the demo flow are available
+  local modulesAvailable = flowConfig_Model.helperFuncs.checkDemoFlowModules(flowConfig_Model.demoFlow)
+
+  if modulesAvailable then
+
+    if _G.availableAPIs.recipe then
+      _G.logger:fine(nameOfModule .. ': Load demo flow')
+
+      local demoFlowsExists = true
+
+      if not File.exists('public/FlowConfigDemo') then
+        File.mkdir('public/FlowConfigDemo')
+        demoFlowsExists = false
+      end
+      if not File.exists('/public/FlowConfigDemo/FlowConfigDemo.bin') then
+        File.copy('/resources/CSK_Module_FlowConfig/FlowConfigDemo.bin', '/public/FlowConfigDemo/FlowConfigDemo.bin')
+        demoFlowsExists = false
+      end
+
+      local currentParameter = CSK_PersistentData.getCurrentParameterInfo()
+
+      if currentParameter ~= 'public/FlowConfigDemo/FlowConfigDemo.bin' or demoFlowsExists == false then
+        CSK_PersistentData.setPath('public/FlowConfigDemo/FlowConfigDemo.bin')
+        CSK_PersistentData.loadContent()
+
+      end
+
+      CSK_RecipeManager.setParameterName('RecipeManager_FlowConfigDemoFlows')
+      CSK_RecipeManager.loadParameters()
+
+      Script.callFunctionAsync('CSK_RecipeManager.loadRecipe', flowConfig_Model.demoFlow)
+
+    else
+      _G.logger:warning(nameOfModule .. ': Modules CSK_RecipeManager / CSK_Commands / CSK_PersistentData needed. Not able to load DemoFlows.')
     end
-    if not File.exists('/public/FlowConfigDemo/FlowConfigDemo.bin') then
-      File.copy('/resources/CSK_Module_FlowConfig/FlowConfigDemo.bin', '/public/FlowConfigDemo/FlowConfigDemo.bin')
-    end
-
-    CSK_PersistentData.setPath('public/FlowConfigDemo/FlowConfigDemo.bin')
-    CSK_PersistentData.loadContent()
-
-    CSK_RecipeManager.setParameterName('RecipeManager_FlowConfigDemoFlows')
-    CSK_RecipeManager.loadParameters()
-
-    Script.callFunctionAsync('CSK_RecipeManager.loadRecipe', flowConfig_Model.demoFlow)
   else
-    _G.logger:warning(nameOfModule .. ': Modules CSK_RecipeManager / CSK_Commands / CSK_PersistentData needed. Not able to load DemoFlows.')
+    _G.logger:warning(nameOfModule .. ': Modules of selected demo flow not available on device.')
+    demoFlowNotAvailable = true
   end
 end
 Script.serveFunction('CSK_FlowConfig.loadDemoFlow', loadDemoFlow)

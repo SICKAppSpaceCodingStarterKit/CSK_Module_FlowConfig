@@ -10,6 +10,7 @@
 local funcs = {}
 -- Providing standard JSON functions
 funcs.json = require('Communication/FlowConfig/helper/Json')
+funcs.checkDemoFlowModules = require('Communication/FlowConfig/helper/checkDemoFlowModules')
 
 --**************************************************************************
 --********************** End Global Scope **********************************

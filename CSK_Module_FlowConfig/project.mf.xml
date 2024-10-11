@@ -70,7 +70,7 @@ Check the UI of this CSK module to configure the system. +</desc>
                 <event name="OnNewStatusTriggerValue">
                     <desc>Notify update for trigger value</desc>
                     <param desc="Value" multiplicity="1" name="value" type="auto"/>
-                    <param desc="Cycle time (0 if single trigger)" multiplicity="1" name="cycleTime" type="int"/>
+                    <param desc="Cycle time in ms (0 if single trigger)." multiplicity="1" name="cycleTime" type="int"/>
                 </event>
                 <event name="OnNewStatusSaveAllModulesAvailable">
                     <desc>Notfiy if CSK_PersistentData module provides the feature to save all configs.</desc>
