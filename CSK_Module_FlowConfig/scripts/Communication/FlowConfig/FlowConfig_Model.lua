@@ -166,7 +166,7 @@ local function buildManifest()
       local enumValues = {}
       enumValues = Engine.getEnumValues(crownNameOfEnums .. '.' .. enumInCrown)
 
-      if enumValues == nil then
+      if enumValues == nil or #enumValues == 0 then
         local checkFC = string.find(crownNameOfEnums, '_FC')
         if checkFC then
           enumValues = Engine.getEnumValues(enumInCrown)
