@@ -46,6 +46,7 @@ Script.serveEvent('CSK_FlowConfig.OnNewStatusModuleIsActive', 'FlowConfig_OnNewS
 Script.serveEvent('CSK_FlowConfig.OnNewStatusFlowActiveUIInfo', 'FlowConfig_OnNewStatusFlowActiveUIInfo')
 
 Script.serveEvent('CSK_FlowConfig.OnNewStatusInfoToggle', 'FlowConfig_OnNewStatusInfoToggle')
+Script.serveEvent('CSK_FlowConfig.OnNewStatusShowInfoOnPageReload', 'FlowConfig_OnNewStatusShowInfoOnPageReload')
 
 Script.serveEvent('CSK_FlowConfig.OnNewStatusSaveMode', 'FlowConfig_OnNewStatusSaveMode')
 
@@ -155,6 +156,9 @@ local function handleOnExpiredTmrFlowConfig()
   Script.notifyEvent("FlowConfig_OnNewStatusLoadParameterOnReboot", flowConfig_Model.parameterLoadOnReboot)
   Script.notifyEvent("FlowConfig_OnPersistentDataModuleAvailable", flowConfig_Model.persistentModuleAvailable)
   Script.notifyEvent("FlowConfig_OnNewParameterName", flowConfig_Model.parametersName)
+
+  Script.notifyEvent('FlowConfig_OnNewStatusShowInfoOnPageReload', flowConfig_Model.showInfoOnUI)
+  Script.notifyEvent('FlowConfig_OnNewStatusInfoToggle', flowConfig_Model.showInfoOnUI)
 end
 Timer.register(tmrFlowConfig, "OnExpired", handleOnExpiredTmrFlowConfig)
 
@@ -466,6 +470,12 @@ local function saveConfigViaUI()
   end
 end
 Script.serveFunction('CSK_FlowConfig.saveConfigViaUI', saveConfigViaUI)
+
+local function setShowImportantInformation(status)
+  flowConfig_Model.showInfoOnUI = status
+  Parameters.set('FlowConfig_ShowImportantInformation', status)
+end
+Script.serveFunction('CSK_FlowConfig.setShowImportantInformation', setShowImportantInformation)
 
 return setFlowConfig_Model_Handle
 

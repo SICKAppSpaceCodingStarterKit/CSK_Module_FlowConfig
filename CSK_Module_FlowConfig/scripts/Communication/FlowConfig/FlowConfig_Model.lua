@@ -40,6 +40,7 @@ flowConfig_Model.helperFuncs = require('Communication/FlowConfig/helper/funcs')
 if _G.availableAPIs.specific == true then
   flowConfig_Model.currentFlow = Flow.create()
 end
+flowConfig_Model.showInfoOnUI = Parameters.get('FlowConfig_ShowImportantInformation') -- Show information about FlowConfig at UI page reload
 flowConfig_Model.flowPath = "private/flow.dflow" -- Path to flow file
 flowConfig_Model.manifest = '' -- Created manifest of features to provide within BlocksEditor by other CSK modules
 flowConfig_Model.triggerValue = '' -- Value to notify within 'OnNewStatusTriggerValue' event

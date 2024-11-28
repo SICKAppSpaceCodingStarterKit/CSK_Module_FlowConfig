@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\Docu\Parameter.cid.xsd">
+  <UserLevel/>
+  <IFD>
+    <CID>
+      <Block Name="CSK_Module_FlowConfig">
+        <Group Description="Relevant data to store for UI." Name="UI">
+          <Variable Description="Status if &quot;ImportantInformation&quot; content should be shown in UI on page reload." Name="FlowConfig_ShowImportantInformation" VirtualMemoryRef="ApplicationParameters">
+            <BasicType>
+              <Bool DefaultValue="True"/>
+            </BasicType>
+          </Variable>
+        </Group>
+      </Block>
+    </CID>
+  </IFD>
+  <Hardware>
+    <VirtualMemory Name="ApplicationParameters"/>
+  </Hardware>
+</Device>

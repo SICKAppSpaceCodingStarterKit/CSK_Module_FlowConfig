@@ -104,6 +104,10 @@ Check the UI of this CSK module to configure the system. +</desc>
                     <desc>Notify mode to save configurations.</desc>
                     <param desc="Mode" multiplicity="1" name="mode" type="string"/>
                 </event>
+                <event name="OnNewStatusShowInfoOnPageReload">
+                    <desc>Notify if information of FlowConfig should be shown on UI page reload.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
@@ -178,6 +182,10 @@ Check the UI of this CSK module to configure the system. +</desc>
                 </function>
                 <function name="resetModule">
                     <desc>Function to reset main configuration of module.</desc>
+                </function>
+                <function name="setShowImportantInformation">
+                    <desc>Function to set if important information regarding the FlowConfig should be shown within the UI at page reload.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </function>
             </serves>
         </crown>
