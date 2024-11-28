@@ -21,15 +21,14 @@
 --SOFTWARE.
 
 ---@diagnostic disable: undefined-global, redundant-parameter, missing-parameter
--- CreationTemplateVersion: 3.6.0
+
 --**************************************************************************
 --**********************Start Global Scope *********************************
 --**************************************************************************
 
 -- If app property "LuaLoadAllEngineAPI" is FALSE, use this to load and check for required APIs
 -- This can improve performance of garbage collection
-
---_G.availableAPIs = require('Communication/FlowConfig/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
+_G.availableAPIs = require('Communication/FlowConfig/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
 -----------------------------------------------------------
 -- Logger
 _G.logger = Log.SharedLogger.create('ModuleLogger')
@@ -43,6 +42,10 @@ _G.logHandle:applyConfig()
 -- Loading script regarding FlowConfig_Model
 -- Check this script regarding FlowConfig_Model parameters and functions
 _G.flowConfig_Model = require('Communication/FlowConfig/FlowConfig_Model')
+
+if _G.availableAPIs.default == false or _G.availableAPIs.specific == false then
+  _G.logger:warning("CSK_FlowConfig: Relevant CROWN(s) not available on device. Module is not supported...")
+end
 
 --**************************************************************************
 --**********************End Global Scope ***********************************
@@ -58,21 +61,17 @@ local function main()
   --       event CSK_PersistentData.OnInitialDataLoaded
   --       (see internal variable _G.flowConfig_Model.parameterLoadOnReboot)
   --       If so, the app will trigger the "OnDataLoadedOnReboot" event if ready after loading parameters
-  --
-  -- Can be used e.g. like this
   ----------------------------------------------------------------------------------------
 
-  -- _G.flowConfig_Model.doSomething() -- if you want to start a function
-  -- ...
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    flowConfig_Model.manifest = flowConfig_Model.buildManifest()
+    flowConfig_Model.checkForSaveAllConfigFeature()
+  end
+
   CSK_FlowConfig.pageCalled() -- Update UI
 
 end
 Script.register("Engine.OnStarted", main)
-
---OR
-
--- Call function after persistent data was loaded
---Script.register("CSK_FlowConfig.OnDataLoadedOnReboot", main)
 
 --**************************************************************************
 --**********************End Function Scope *********************************
