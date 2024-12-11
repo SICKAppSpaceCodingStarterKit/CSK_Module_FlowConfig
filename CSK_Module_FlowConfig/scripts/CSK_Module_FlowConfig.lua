@@ -68,6 +68,9 @@ local function main()
     flowConfig_Model.checkForSaveAllConfigFeature()
   end
 
+  -- State that FlowConfig module is ready (info might be needed for some other modules)
+  Script.notifyEvent('FlowConfig_OnNewStatusFlowConfigReady')
+
   CSK_FlowConfig.pageCalled() -- Update UI
 
 end
