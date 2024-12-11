@@ -42,6 +42,7 @@ Script.serveEvent('CSK_FlowConfig.OnNewValue', 'FlowConfig_OnNewValue')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusModuleVersion', 'FlowConfig_OnNewStatusModuleVersion')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusCSKStyle', 'FlowConfig_OnNewStatusCSKStyle')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusModuleIsActive', 'FlowConfig_OnNewStatusModuleIsActive')
+Script.serveEvent('CSK_FlowConfig.OnNewStatusFlowConfigReady', 'FlowConfig_OnNewStatusFlowConfigReady')
 
 Script.serveEvent('CSK_FlowConfig.OnNewStatusFlowActiveUIInfo', 'FlowConfig_OnNewStatusFlowActiveUIInfo')
 
