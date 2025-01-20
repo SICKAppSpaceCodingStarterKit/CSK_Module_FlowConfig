@@ -18,6 +18,7 @@ local function loadAPIs()
   Engine = require 'API.Engine'
   File = require 'API.File'
   Object = require 'API.Object'
+  Parameters = require 'API.Parameters'
   Timer = require 'API.Timer'
 
   -- Check if related CSK modules are available to be used

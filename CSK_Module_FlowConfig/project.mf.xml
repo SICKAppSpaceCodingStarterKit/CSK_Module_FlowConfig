@@ -16,6 +16,22 @@ Check the UI of this CSK module to configure the system. +</desc>
                 <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules used within the flow to save their current configuration in PersistentData" name="FLOW">FLOW</item>
                 <item desc="This will only save the configuration of the flow in PersistentData. Configurations done in other CSK modules need to be saved additionally" name="MODULE">MODULE</item>
             </enum>
+            <enum name="LogicOperator" trait="released" type="string">
+                <desc>Logical operators</desc>
+                <item desc="AND operation" name="AND">AND</item>
+                <item desc="OR operation" name="OR">OR</item>
+                <item desc="Invert incoming boolean value." name="INVERT">INVERT</item>
+                <item desc="Check if value is greater than definition of criteriaA." name="GREATER">GREATER</item>
+                <item desc="Check if value is greater or equal as definition of criteriaA." name="GREATER_EQUAL">GREATER_EQUAL</item>
+                <item desc="Check if value is less than definition of criteriaA." name="LESS">LESS</item>
+                <item desc="Check if value is less or equal as definition of criteriaA." name="LESS_EQUAL">LESS_EQUAL</item>
+                <item desc="Check if value is greater/equal as critieriaA and smaller/equal as critieriaB." name="WITHIN_RANGE">WITHIN_RANGE</item>
+                <item desc="Check if value is smaller/equal as critieriaA and bigger/equal as critieriaB." name="OUT_OF_RANGE">OUT_OF_RANGE</item>
+                <item desc="Check if value is equal to criteriaA." name="EQUAL">EQUAL</item>
+                <item desc="Check if value changed." name="CHANGED">CHANGED</item>
+                <item desc="Continuous AND operation (keeps previous received status and directly compares with this)" name="AND_PREV">AND_PREV</item>
+                <item desc="Continuous OR operation (keeps previous received status and directly compares with this)" name="OR_PREV">OR_PREV</item>
+            </enum>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
                     <desc>Notify status if parameters should be loaded on app/device boot up.</desc>
@@ -111,6 +127,30 @@ Check the UI of this CSK module to configure the system. +</desc>
                 <event name="OnNewStatusFlowConfigReady">
                     <desc>Notify that FlowConfig module is ready.</desc>
                 </event>
+                <event name="OnExpired_TYPE_TIME_VALUE">
+                    <desc>Example of dynamically served event to periodically notify a value to trigger other features. +
+TYPE, TIME and VALUE will be replaced by the name of the added expression (e.g. "CSK_FlowConfig.OnExpired_BOOL_100_TRUE"). +
+INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +</desc>
+                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Timestamp" multiplicity="1" name="timestamp" type="int"/>
+                </event>
+                <event name="OnNewLogicResult_ID">
+                    <desc>Example of dynamically served event to notify result of logic operation. +
+ID will be replaced by internal set identifier of logic block (e.g. "CSK_FlowConfig.OnNewLogicResult_2"). +
+INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +</desc>
+                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Timestamp" multiplicity="1" name="timestamp" type="int"/>
+                </event>
+                <event name="OnNewValueToForward_ID">
+                    <desc>Example of dynamically served event to notify checked value of logic operation. +
+ID will be replaced by internal set identifier of logic block (e.g. "CSK_FlowConfig.OnNewValueToForward_2"). +
+INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +</desc>
+                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
+                    <param desc="Timestamp" multiplicity="1" name="timestamp" type="int"/>
+                </event>
+                <event name="OnStopFlowConfigProviders">
+                    <desc>Notify event to stop FlowConfig relevant providers.</desc>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
@@ -190,6 +230,24 @@ Check the UI of this CSK module to configure the system. +</desc>
                     <desc>Function to set if important information regarding the FlowConfig should be shown within the UI at page reload.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </function>
+                <function name="addTimer">
+                    <desc>Function to add a cyclic timer to trigger events.</desc>
+                    <param desc="Value to send via event.&#10;For 'BOOL' values use &quot;true&quot; or &quot;false&quot;" multiplicity="1" name="value" type="string"/>
+                    <param desc="Type of value to send." multiplicity="1" name="valueType" type="string"/>
+                    <param desc="Cycle time in ms ('0' for single trigger)" multiplicity="1" name="cycleTime" type="int"/>
+                </function>
+                <function name="addLogicBlock">
+                    <desc>Function to internally add logic blocks.</desc>
+                    <param desc="Internally set instance identifier." multiplicity="1" name="instance" type="string"/>
+                    <param desc="Logic to use." multiplicity="1" name="logic" ref="CSK_FlowConfig.LogicOperator" type="enum"/>
+                    <param desc="Source for value1." multiplicity="1" name="source1" type="string"/>
+                    <param desc="Optional source for value2." multiplicity="?" name="source2" type="string"/>
+                    <param desc="Optional criteriaA, used by some operators (see info for logic)." multiplicity="?" name="criteriaA" type="string"/>
+                    <param desc="Optional valueB, used by some operators (see info for logic)." multiplicity="?" name="valueB" type="string"/>
+                </function>
+                <function name="stopFlowProviders">
+                    <desc>Function to trigger event to stop FlowConfig relevant providers.</desc>
+                </function>
             </serves>
         </crown>
         <crown name="FlowConfig_FC">
@@ -204,11 +262,13 @@ Check the UI of this CSK module to configure the system. +</desc>
             <serves/>
             <crown name="OnNewValue">
                 <trait>released</trait>
-                <desc>Provide values. Especially helpful for testing purposes.</desc>
+                <desc>DEPRECATED - Use 'OnExpired' block instead.
+Provide values. Especially helpful for testing purposes.</desc>
                 <serves>
                     <event name="OnNewValue">
                         <include>data-flow</include>
-                        <desc>Provide values. Especially helpful for testing purposes.
+                        <desc>DEPRECATED - Use 'OnExpired' block instead.
+Provide values. Especially helpful for testing purposes.
 Will send current timestamp as 2nd parameter.</desc>
                         <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
                         <param desc="'CSK_FlowConfig.OnNewValue'&#10;&#10;Parameter:&#10;1: Value (STRING or NUMBER or BOOL)&#10;2: Timestamp (INT)" multiplicity="1" name="OnNewValue" type="string"/>
@@ -231,14 +291,65 @@ Will send current timestamp as 2nd parameter.</desc>
                     </function>
                 </serves>
             </crown>
+            <crown name="OnExpired">
+                <trait>released</trait>
+                <desc>Periodically notify values. Especially helpful for testing purposes.
+Will send current timestamp as 2nd parameter.</desc>
+                <serves>
+                    <event name="OnExpired">
+                        <include>data-flow</include>
+                        <desc>Periodically notify values. Especially helpful for testing purposes.
+Will send current timestamp as 2nd parameter.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="'CSK_FlowConfig.OnExpired_[TYPE]_[TIME]_[VALUE]'&#10;&#10;Parameter:&#10;1: Value (STRING or NUMBER or BOOL)&#10;2: Timestamp (INT)" multiplicity="1" name="OnExpired" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Cycle time in ms ('0' for single trigger)" multiplicity="1" name="CycleTime" type="int"/>
+                        <param desc="Type of value to send." multiplicity="1" name="ValueType" ref="FlowConfig_FC.ValueType" type="enum"/>
+                        <param desc="Value to send via event.&#10;For 'BOOL' values use &quot;true&quot;, &quot;false&quot; or &quot;toggle&quot;." multiplicity="1" name="Value" type="string"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="ProcessLogic">
+                <desc>Check incoming value(s) with a logical operator. Return result and optionally forward processed value if succesfull.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param constraint="1-99" desc="Type of logic operator.&#10;&#10;AND&#10;valueA AND valueB&#10;AND_PREV&#10;valueA AND valueB (keep previous status)&#10;CHANGED&#10;valueA =! previous valueA&#10;EQUAL&#10;valueA == critieraA&#10;GREATER&#10;valueA &gt; criteriaA&#10;GREATER_EQUAL&#10;valueA &gt;= criteriaA&#10;INVERT&#10;not valueA&#10;LESS&#10;valueA &lt; criteriaA&#10;LESS_EQUAL&#10;valueA &lt;= criteriaA&#10;OR&#10;valueA OR valueB&#10;OR_PREV&#10;valueA OR valueB (keep previous status)&#10;OUT_OF_RANGE&#10;valueA &lt; critieriaA OR valueA &gt; critieriaB&#10;WITHIN_RANGE&#10;criteriaA &gt;= valueA &lt;= critieriaB" multiplicity="1" name="Logic" ref="CSK_FlowConfig.LogicOperator" type="enum"/>
+                        <param desc="Optional criteriaA (see info of logic)." multiplicity="?" name="criteriaA" type="string"/>
+                        <param desc="Optional criteriaB (see info of logic)." multiplicity="?" name="criteriaB" type="string"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="processLogic">
+                        <include>data-flow</include>
+                        <desc>Check incoming value(s) with a logical operator. Return result and optionally forward processed value if succesfull.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Set source of valueA.&#10;&#10;Parameter:&#10;1: value (AUTO)" multiplicity="?" name="sourceA" type="string"/>
+                        <param desc="Set source of valueB.&#10;&#10;Parameter:&#10;1: value (AUTO)" multiplicity="?" name="sourceB" type="string"/>
+                        <return desc="'CSK_FlowConfig.OnNewLogicResult_[NUM]'&#10;(NUM is set internally)&#10;&#10;Parameter:&#10;1: (optional) Result (BOOL)" multiplicity="1" name="OnNewLogicResult" type="string"/>
+                        <return desc="'CSK_FlowConfig.OnNewValueToForward_[NUM]'&#10;(NUM is set internally)&#10;&#10;Parameter:&#10;1: (optional) Result (AUTO)" multiplicity="1" name="OnNewValueToForward" type="string"/>
+                    </function>
+                </serves>
+            </crown>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">1.1.0</meta>
+        <meta key="version">1.2.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
         <meta key="crown2-flow-engine">false</meta>
-        <meta key="LuaLoadAllEngineAPI">true</meta>
+        <meta key="LuaLoadAllEngineAPI">false</meta>
         <entry default="CSK_Module_FlowConfig.lua" path="scripts"/>
     </application>
 </manifest>

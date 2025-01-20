@@ -38,6 +38,10 @@ local flowConfig_Model
 
 -- ************************ UI Events Start ********************************
 
+Script.serveEvent('CSK_FlowConfig.OnExpired_TYPE_TIME_VALUE', 'FlowConfig_OnExpired_TYPE_TIME_VALUE')
+Script.serveEvent('CSK_FlowConfig.OnNewLogicResult_ID', 'FlowConfig_OnNewLogicResult_ID')
+Script.serveEvent('CSK_FlowConfig.OnNewValueToForward_ID', 'FlowConfig_OnNewValueToForward_ID')
+
 Script.serveEvent('CSK_FlowConfig.OnNewValue', 'FlowConfig_OnNewValue')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusModuleVersion', 'FlowConfig_OnNewStatusModuleVersion')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusCSKStyle', 'FlowConfig_OnNewStatusCSKStyle')
@@ -53,6 +57,7 @@ Script.serveEvent('CSK_FlowConfig.OnNewStatusSaveMode', 'FlowConfig_OnNewStatusS
 
 Script.serveEvent('CSK_FlowConfig.OnNewFlowConfig', 'FlowConfig_OnNewFlowConfig')
 Script.serveEvent('CSK_FlowConfig.OnClearOldFlow', 'FlowConfig_OnClearOldFlow')
+Script.serveEvent('CSK_FlowConfig.OnStopFlowConfigProviders', 'FlowConfig_OnStopFlowConfigProviders')
 
 Script.serveEvent('CSK_FlowConfig.OnNewFlow', 'FlowConfig_OnNewFlow')
 Script.serveEvent('CSK_FlowConfig.OnNewManifest', 'FlowConfig_OnNewManifest')
@@ -341,6 +346,12 @@ local function getStatusModuleActive()
   return _G.availableAPIs.default and _G.availableAPIs.specific
 end
 Script.serveFunction('CSK_FlowConfig.getStatusModuleActive', getStatusModuleActive)
+
+local function stopFlowProviders()
+  _G.logger:fine(nameOfModule .. ': Stop FlowConfig providers.')
+  Script.notifyEvent('FlowConfig_OnStopFlowConfigProviders')
+end
+Script.serveFunction('CSK_FlowConfig.stopFlowProviders', stopFlowProviders)
 
 -- *****************************************************************
 -- Following function can be adapted for CSK_PersistentData module usage

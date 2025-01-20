@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Release 1.2.0
+
+### New features
+- 'OnExpired' blocks to provide, periodically triggered via events. Multiple blocks can be used. (Replaces former 'OnNewValue' block)
+- Logic blocks to solve simple logic operations directly within a flow
+- New event 'OnStopFlowConfigProviders' to inform other modules to stop their FlowConfig related providers, e.g. via UI button (related modules need to be updated to support this feature)
+
+### Improvement
+- App property 'LuaLoadAllEngineAPI' set to false
+
 ## Release 1.1.0
 
 ### Improvement
