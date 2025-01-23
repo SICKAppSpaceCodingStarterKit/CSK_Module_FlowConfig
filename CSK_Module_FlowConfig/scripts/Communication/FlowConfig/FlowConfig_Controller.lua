@@ -237,6 +237,7 @@ local function stopTriggerTimer()
   triggerTimer:stop()
 end
 Script.serveFunction('CSK_FlowConfig.stopTriggerTimer', stopTriggerTimer)
+Script.register('CSK_FlowConfig.OnStopFlowConfigProviders', stopTriggerTimer)
 
 local function saveAllModuleConfigs()
   if flowConfig_Model.saveAllPersistentDataAvailable then
