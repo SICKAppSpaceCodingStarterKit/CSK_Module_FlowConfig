@@ -142,7 +142,7 @@ INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +
                     <param desc="Timestamp" multiplicity="1" name="timestamp" type="int"/>
                 </event>
                 <event name="OnNewValueToForward_ID">
-                    <desc>Example of dynamically served event to notify checked value of logic operation. +
+                    <desc>Example of dynamically served event to notify the checked value of a logic operation if its result was successfull. +
 ID will be replaced by internal set identifier of logic block (e.g. "CSK_FlowConfig.OnNewValueToForward_2"). +
 INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +</desc>
                     <param desc="Value" multiplicity="1" name="value" type="auto"/>
@@ -338,7 +338,7 @@ Will send current timestamp as 2nd parameter.</desc>
                         <param desc="Set source of valueA.&#10;&#10;Parameter:&#10;1: value (AUTO)" multiplicity="?" name="sourceA" type="string"/>
                         <param desc="Set source of valueB.&#10;&#10;Parameter:&#10;1: value (AUTO)" multiplicity="?" name="sourceB" type="string"/>
                         <return desc="'CSK_FlowConfig.OnNewLogicResult_[NUM]'&#10;(NUM is set internally)&#10;&#10;Parameter:&#10;1: (optional) Result (BOOL)" multiplicity="1" name="OnNewLogicResult" type="string"/>
-                        <return desc="'CSK_FlowConfig.OnNewValueToForward_[NUM]'&#10;(NUM is set internally)&#10;&#10;Parameter:&#10;1: (optional) Result (AUTO)" multiplicity="1" name="OnNewValueToForward" type="string"/>
+                        <return desc="Forward checked value (ONLY if operation was successfull).&#10;'CSK_FlowConfig.OnNewValueToForward_[NUM]'&#10;(NUM is set internally)&#10;&#10;Parameter:&#10;1: (optional) Result (AUTO)" multiplicity="1" name="OnNewValueToForward" type="string"/>
                     </function>
                 </serves>
             </crown>

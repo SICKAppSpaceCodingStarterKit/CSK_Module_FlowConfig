@@ -79,7 +79,6 @@ local function runOperator(instance)
   if result == nil then
     _G.logger:warning("CSK_FlowConfig: Error within operartor")
   else
-    --print("Result = " .. tostring(result) .. ', providing on ' .. parameters[instance]['event'])
     Script.notifyEvent(parameters[instance]['event'], result)
 
     if result == true then
@@ -106,16 +105,13 @@ local function checkForAllParameters(instance)
     runOperator(instance)
   else
     -- Wait for further values...
-    --print("Wait...")
   end
 end
 
 local function addLogicBlock(instance, logic, source1, source2, criteriaA, criteriaB)
 
--- Create new instance of block
+  -- Create new instance of block
   if not parameters[instance] then
-    --print("Add instance " .. instance)
-
     parameters[instance] = {}
 
     parameters[instance]['checkMultiValues'] = false
@@ -151,7 +147,6 @@ local function addLogicBlock(instance, logic, source1, source2, criteriaA, crite
   for i = 1, 2 do
     local function setParameter(value)
       parameters[instance]['values'][tostring(i)] = value
-      --print("Set value " .. tostring(i) .. " of instance identifier " .. tostring(instance) .. " to " .. tostring(value))
       if parameters[instance]['checkMultiValues'] then
         checkForAllParameters(instance)
       else
