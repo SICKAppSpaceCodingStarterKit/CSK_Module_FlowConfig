@@ -76,7 +76,12 @@ local function reset()
     value:stop()
     timer[key] = nil
   end
+  for toggleKey, _ in pairs(toggleStatus) do
+    toggleStatus[toggleKey] = nil
+  end
+
   timer = {}
+  toggleStatus = {}
 end
 Script.register('CSK_FlowConfig.OnClearOldFlow', reset)
 Script.register('CSK_FlowConfig.OnStopFlowConfigProviders', reset)

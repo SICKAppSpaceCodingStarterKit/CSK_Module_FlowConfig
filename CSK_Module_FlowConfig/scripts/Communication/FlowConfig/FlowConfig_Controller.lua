@@ -351,6 +351,8 @@ Script.serveFunction('CSK_FlowConfig.getStatusModuleActive', getStatusModuleActi
 local function stopFlowProviders()
   _G.logger:fine(nameOfModule .. ': Stop FlowConfig providers.')
   Script.notifyEvent('FlowConfig_OnStopFlowConfigProviders')
+  Script.notifyEvent("FlowConfig_OnNewStatusFlowActiveUIInfo", 'stopFlowProvider')
+  tmrUIMessage:start()
 end
 Script.serveFunction('CSK_FlowConfig.stopFlowProviders', stopFlowProviders)
 
