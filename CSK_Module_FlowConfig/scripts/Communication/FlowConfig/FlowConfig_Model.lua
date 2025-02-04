@@ -26,6 +26,10 @@ flowConfig_Model.parameterLoadOnReboot = false -- Status if parameter dataset sh
 -- Load FlowConfig relevant features
 -- Needs to be in its own thread as otherwise it will block the Flow.start process in this module
 Script.startScript('CSK_FlowConfig_FlowConfig')
+-- Load script for timer blocks
+Script.startScript('CSK_FlowConfig_TimerProcessing')
+-- Load script for logic blocks
+Script.startScript('CSK_FlowConfig_LogicProcessing')
 
 -- Load script to communicate with the FlowConfig_Model interface and give access
 -- to the FlowConfig_Model object.
@@ -88,6 +92,7 @@ local function buildManifest()
     if posMainCrown == #value or posSubCrown then
       local crownName = string.sub(value, 1, posMainCrown)
       local moduleNameToCheck = 'CSK_' .. string.sub(crownName, 1, #crownName-3) .. '.getStatusModuleActive'
+
       local _, moduleStatus = Script.callFunction(moduleNameToCheck) -- check if module is active on device
       local content = Engine.getCrownAsXML(value)
 
