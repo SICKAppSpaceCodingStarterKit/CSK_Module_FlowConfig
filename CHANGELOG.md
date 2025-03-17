@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Full UI usable via iFrame in other SensorApps
 - Hide fullscreen icon within iFrame
 - Include all internal blocks to show info that no extra UI exists
+- Hide non used button for "Global parameters"
 
 ## Release 1.2.0
 
