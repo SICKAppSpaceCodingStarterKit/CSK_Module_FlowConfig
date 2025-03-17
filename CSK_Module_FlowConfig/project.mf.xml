@@ -344,7 +344,7 @@ Will send current timestamp as 2nd parameter.</desc>
             </crown>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">1.2.0</meta>
+        <meta key="version">1.2.1</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
