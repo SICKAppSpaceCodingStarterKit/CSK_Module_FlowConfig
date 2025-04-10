@@ -37,9 +37,9 @@ UI sources are not included in this repository.
 Tested on:
 |Device|Firmware|Module version|
 |--|--|--|
-|SIM1012|V2.4.2|V1.2.1|
+|SIM1012|V2.4.2|V1.3.0|
 |SIM1012|V2.4.2|V1.0.0|
-|SICK AppEngine|V1.7.0|V1.2.1|
+|SICK AppEngine|V1.7.0|V1.3.0|
 |SICK AppEngine|V1.7.0|V1.0.0|
 
 This module is part of the SICK AppSpace Coding Starter Kit developing approach.  
