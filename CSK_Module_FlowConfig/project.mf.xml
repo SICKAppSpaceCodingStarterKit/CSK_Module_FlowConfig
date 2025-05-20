@@ -12,14 +12,14 @@ It makes use of a BlocksEditor within the UI to take care of the configuration. 
 Check the UI of this CSK module to configure the system. +</desc>
             <enum name="SaveMode" trait="released">
                 <desc>Mode of saving configuration</desc>
-                <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules available on the device to save their current configuration in PersistentData" name="ALL">ALL</item>
-                <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules used within the flow to save their current configuration in PersistentData" name="FLOW">FLOW</item>
+                <item desc="This will save the configuration of the flow and additionally triggers all CSK modules available on the device to save their current configuration in PersistentData" name="ALL">ALL</item>
+                <item desc="This will save the configuration of the flow and additionally triggers all CSK modules used within the flow to save their current configuration in PersistentData" name="FLOW">FLOW</item>
                 <item desc="This will only save the configuration of the flow in PersistentData. Configurations done in other CSK modules need to be saved additionally" name="MODULE">MODULE</item>
             </enum>
             <enum name="LogicOperator" trait="released" type="string">
                 <desc>Logical operators</desc>
-                <item desc="AND operation" name="AND">AND</item>
-                <item desc="OR operation" name="OR">OR</item>
+                <item desc="AND operation (will be evaluated when both states have changed)" name="AND">AND</item>
+                <item desc="OR operation (will be evaluated when both states have changed)" name="OR">OR</item>
                 <item desc="Invert incoming boolean value." name="INVERT">INVERT</item>
                 <item desc="Check if value is greater than definition of criteriaA." name="GREATER">GREATER</item>
                 <item desc="Check if value is greater or equal as definition of criteriaA." name="GREATER_EQUAL">GREATER_EQUAL</item>
@@ -31,6 +31,7 @@ Check the UI of this CSK module to configure the system. +</desc>
                 <item desc="Check if value changed." name="CHANGED">CHANGED</item>
                 <item desc="Continuous AND operation (keeps previous received status and directly compares with this)" name="AND_PREV">AND_PREV</item>
                 <item desc="Continuous OR operation (keeps previous received status and directly compares with this)" name="OR_PREV">OR_PREV</item>
+                <item desc="Check if value changed from FALSE to TRUE." name="RISING_EDGE">RISING_EDGE</item>
             </enum>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
@@ -326,7 +327,7 @@ Will send current timestamp as 2nd parameter.</desc>
                 <serves>
                     <function name="create">
                         <desc>Internally used CSK_FlowConfig create function.</desc>
-                        <param constraint="1-99" desc="Type of logic operator.&#10;&#10;AND&#10;valueA AND valueB&#10;AND_PREV&#10;valueA AND valueB (keep previous status)&#10;CHANGED&#10;valueA =! previous valueA&#10;EQUAL&#10;valueA == critieraA&#10;GREATER&#10;valueA &gt; criteriaA&#10;GREATER_EQUAL&#10;valueA &gt;= criteriaA&#10;INVERT&#10;not valueA&#10;LESS&#10;valueA &lt; criteriaA&#10;LESS_EQUAL&#10;valueA &lt;= criteriaA&#10;OR&#10;valueA OR valueB&#10;OR_PREV&#10;valueA OR valueB (keep previous status)&#10;OUT_OF_RANGE&#10;valueA &lt; critieriaA OR valueA &gt; critieriaB&#10;WITHIN_RANGE&#10;criteriaA &gt;= valueA &lt;= critieriaB" multiplicity="1" name="Logic" ref="CSK_FlowConfig.LogicOperator" type="enum"/>
+                        <param constraint="1-99" desc="Type of logic operator.&#10;&#10;AND&#10;valueA AND valueB&#10;AND_PREV&#10;valueA AND valueB (keep previous status)&#10;CHANGED&#10;valueA =! previous valueA&#10;EQUAL&#10;valueA == critieraA&#10;GREATER&#10;valueA &gt; criteriaA&#10;GREATER_EQUAL&#10;valueA &gt;= criteriaA&#10;INVERT&#10;not valueA&#10;LESS&#10;valueA &lt; criteriaA&#10;LESS_EQUAL&#10;valueA &lt;= criteriaA&#10;OR&#10;valueA OR valueB&#10;OR_PREV&#10;valueA OR valueB (keep previous status)&#10;OUT_OF_RANGE&#10;valueA &lt; critieriaA OR valueA &gt; critieriaB&#10;RISING_EDGE&#10;valueA == TRUE (was FALSE before)&#10;WITHIN_RANGE&#10;criteriaA &gt;= valueA &lt;= critieriaB" multiplicity="1" name="Logic" ref="CSK_FlowConfig.LogicOperator" type="enum"/>
                         <param desc="Optional criteriaA (see info of logic)." multiplicity="?" name="criteriaA" type="string"/>
                         <param desc="Optional criteriaB (see info of logic)." multiplicity="?" name="criteriaB" type="string"/>
                         <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
@@ -344,7 +345,7 @@ Will send current timestamp as 2nd parameter.</desc>
             </crown>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">1.2.0</meta>
+        <meta key="version">1.3.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

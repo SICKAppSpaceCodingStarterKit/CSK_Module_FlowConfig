@@ -220,7 +220,7 @@ end
 Timer.register(triggerTimer, 'OnExpired', handleOnExpiredTriggerTimer)
 
 local function openUI(nameOfBlock)
-  if nameOfBlock == 'FlowConfig_FC.OnNewValue.OnNewValue' then
+  if nameOfBlock == 'FlowConfig_FC.OnNewValue.OnNewValue' or nameOfBlock == 'FlowConfig_FC.OnExpired.OnExpired' or nameOfBlock == 'FlowConfig_FC.ProcessLogic.processLogic' then
     Script.notifyEvent("FlowConfig_OnNewStatusFlowActiveUIInfo", 'noUI')
     tmrUIMessage:start()
   end

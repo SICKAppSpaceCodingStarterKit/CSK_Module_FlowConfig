@@ -150,7 +150,11 @@ local function buildManifest()
                 end
               end
             end
-            startPos = enumPos + 1
+            if enumPos > refPos then
+              startPos = enumPos + 1
+            else
+              startPos = refPos + 1
+            end
           else
             break
           end

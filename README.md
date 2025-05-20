@@ -37,8 +37,10 @@ UI sources are not included in this repository.
 Tested on:
 |Device|Firmware|Module version|
 |--|--|--|
-|SICK AppEngine|V1.7.0|V1.0.0|
+|SIM1012|V2.4.2|V1.3.0|
 |SIM1012|V2.4.2|V1.0.0|
+|SICK AppEngine|V1.7.0|V1.3.0|
+|SICK AppEngine|V1.7.0|V1.0.0|
 
 This module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of the modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  

@@ -61,6 +61,20 @@ local function runOperator(instance)
     if type(parameters[instance]['values']['1']) == 'number' then
       result = parameters[instance]['values']['1'] <= tonumber(parameters[instance]['criteria']['1'])
     end
+  elseif parameters[instance]['logic'] == 'RISING_EDGE' then
+    if type(parameters[instance]['values']['1']) == 'boolean' then
+      if parameters[instance]['values']['1'] == true then
+        if parameters[instance]['values']['2'] == false then
+          result = true
+        else
+          result = false
+        end
+        parameters[instance]['values']['2'] = true
+      else
+        result = false
+        parameters[instance]['values']['2'] = false
+      end
+    end
   elseif parameters[instance]['logic'] == 'WITHIN_RANGE' then
     if type(parameters[instance]['values']['1']) == 'number' then
       result = parameters[instance]['values']['1'] >= tonumber(parameters[instance]['criteria']['1']) and parameters[instance]['values']['1'] <= tonumber(parameters[instance]['criteria']['2'])
@@ -79,7 +93,13 @@ local function runOperator(instance)
   if result == nil then
     _G.logger:warning("CSK_FlowConfig: Error within operartor")
   else
-    Script.notifyEvent(parameters[instance]['event'], result)
+    if parameters[instance]['logic'] == 'RISING_EDGE' then
+      if result == true then
+        Script.notifyEvent(parameters[instance]['event'], true)
+      end
+    else
+      Script.notifyEvent(parameters[instance]['event'], result)
+    end
 
     if result == true then
       if parameters[instance]['logic'] == 'EQUAL' or parameters[instance]['logic'] == 'GREATER' or parameters[instance]['logic'] == 'GREATER_EQUAL' or parameters[instance]['logic'] == 'SMALLER' or parameters[instance]['logic'] == 'SMALLER_EQUAL' or parameters[instance]['logic'] == 'WITHIN_RANGE' or parameters[instance]['logic'] == 'OUT_OF_RANGE' or parameters[instance]['logic'] == 'CHANGED' then
@@ -90,7 +110,9 @@ local function runOperator(instance)
 
   if parameters[instance]['logic'] ~= 'AND_PREV' and parameters[instance]['logic'] ~= 'OR_PREV' then
     parameters[instance]['values']['1'] = ''
-    parameters[instance]['values']['2'] = ''
+    if parameters[instance]['logic'] ~= 'RISING_EDGE' then
+      parameters[instance]['values']['2'] = ''
+    end
   end
 end
 
@@ -119,6 +141,10 @@ local function addLogicBlock(instance, logic, source1, source2, criteriaA, crite
     parameters[instance]['values'] = {}
     parameters[instance]['values']['1'] = ''
     parameters[instance]['values']['2'] = ''
+
+    if logic == 'RISING_EDGE' then
+      parameters[instance]['values']['2'] = false
+    end
 
     parameters[instance]['oldValue'] = ''
 
