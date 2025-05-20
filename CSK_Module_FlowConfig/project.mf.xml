@@ -12,14 +12,14 @@ It makes use of a BlocksEditor within the UI to take care of the configuration. 
 Check the UI of this CSK module to configure the system. +</desc>
             <enum name="SaveMode" trait="released">
                 <desc>Mode of saving configuration</desc>
-                <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules available on the device to save their current configuration in PersistentData" name="ALL">ALL</item>
-                <item desc="This will save the configuration of the flow and additionally triggers for all CSK modules used within the flow to save their current configuration in PersistentData" name="FLOW">FLOW</item>
+                <item desc="This will save the configuration of the flow and additionally triggers all CSK modules available on the device to save their current configuration in PersistentData" name="ALL">ALL</item>
+                <item desc="This will save the configuration of the flow and additionally triggers all CSK modules used within the flow to save their current configuration in PersistentData" name="FLOW">FLOW</item>
                 <item desc="This will only save the configuration of the flow in PersistentData. Configurations done in other CSK modules need to be saved additionally" name="MODULE">MODULE</item>
             </enum>
             <enum name="LogicOperator" trait="released" type="string">
                 <desc>Logical operators</desc>
-                <item desc="AND operation" name="AND">AND</item>
-                <item desc="OR operation" name="OR">OR</item>
+                <item desc="AND operation (will be evaluated when both states have changed)" name="AND">AND</item>
+                <item desc="OR operation (will be evaluated when both states have changed)" name="OR">OR</item>
                 <item desc="Invert incoming boolean value." name="INVERT">INVERT</item>
                 <item desc="Check if value is greater than definition of criteriaA." name="GREATER">GREATER</item>
                 <item desc="Check if value is greater or equal as definition of criteriaA." name="GREATER_EQUAL">GREATER_EQUAL</item>
