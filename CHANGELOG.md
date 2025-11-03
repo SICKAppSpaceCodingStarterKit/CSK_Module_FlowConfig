@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Release 1.4.0
+
+### Improvement
+- Added features "TO_NUMBER" and "TO_STRING" to logic operator block
+
 ## Release 1.3.1
 
 ### Bugfixes

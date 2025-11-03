@@ -88,6 +88,20 @@ local function runOperator(instance)
     if result then
       parameters[instance]['oldValue'] = parameters[instance]['values']['1']
     end
+  elseif parameters[instance]['logic'] == 'TO_NUMBER' then
+    if tonumber(parameters[instance]['values']['1']) then
+      result = true
+      parameters[instance]['values']['1'] = tonumber(parameters[instance]['values']['1'])
+    else
+      result = false
+    end
+  elseif parameters[instance]['logic'] == 'TO_STRING' then
+    if tostring(parameters[instance]['values']['1']) then
+      result = true
+      parameters[instance]['values']['1'] = tostring(parameters[instance]['values']['1'])
+    else
+      result = false
+    end
   end
 
   if result == nil then
@@ -102,7 +116,7 @@ local function runOperator(instance)
     end
 
     if result == true then
-      if parameters[instance]['logic'] == 'EQUAL' or parameters[instance]['logic'] == 'GREATER' or parameters[instance]['logic'] == 'GREATER_EQUAL' or parameters[instance]['logic'] == 'SMALLER' or parameters[instance]['logic'] == 'SMALLER_EQUAL' or parameters[instance]['logic'] == 'WITHIN_RANGE' or parameters[instance]['logic'] == 'OUT_OF_RANGE' or parameters[instance]['logic'] == 'CHANGED' then
+      if parameters[instance]['logic'] == 'EQUAL' or parameters[instance]['logic'] == 'GREATER' or parameters[instance]['logic'] == 'GREATER_EQUAL' or parameters[instance]['logic'] == 'SMALLER' or parameters[instance]['logic'] == 'SMALLER_EQUAL' or parameters[instance]['logic'] == 'WITHIN_RANGE' or parameters[instance]['logic'] == 'OUT_OF_RANGE' or parameters[instance]['logic'] == 'CHANGED' or parameters[instance]['logic'] == 'TO_NUMBER' or parameters[instance]['logic'] == 'TO_STRING' then
         Script.notifyEvent(parameters[instance]['forwardEvent'], parameters[instance]['values']['1'])
       end
     end
