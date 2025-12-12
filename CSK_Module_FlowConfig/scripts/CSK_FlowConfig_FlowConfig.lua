@@ -6,6 +6,7 @@
 
 _G.availableAPIs = require('Communication/FlowConfig/helper/checkAPIs')
 
-require('Communication.FlowConfig.Features.FlowConfig_OnNewValue')
+require('Communication.FlowConfig.Features.FlowConfig_OnEvent')
+require('Communication.FlowConfig.Features.FlowConfig_NotifyEvent')
 require('Communication.FlowConfig.Features.FlowConfig_OnExpired')
 require('Communication.FlowConfig.Features.FlowConfig_ProcessLogic')

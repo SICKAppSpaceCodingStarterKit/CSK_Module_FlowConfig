@@ -7,7 +7,11 @@
 --**********************Start Global Scope *********************************
 --**************************************************************************
 
+local nameOfModule = 'CSK_FlowConfig'
+
 local funcs = {}
+-- Default parameters for instances of module
+funcs.defaultParameters = require('Communication/FlowConfig/FlowConfig_Parameters')
 -- Providing standard JSON functions
 funcs.json = require('Communication/FlowConfig/helper/Json')
 funcs.checkDemoFlowModules = require('Communication/FlowConfig/helper/checkDemoFlowModules')
@@ -142,6 +146,27 @@ local function createStringListBySimpleTable(content)
   return list
 end
 funcs.createStringListBySimpleTable = createStringListBySimpleTable
+
+--- Function to compare table content. Optionally will fill missing values within content table with values of defaultTable
+---@param content auto Data to check
+---@param defaultTable auto Reference data
+---@return auto[] content Update of data
+local function checkParameters(content, defaultTable)
+  for key, value in pairs(defaultTable) do
+    if type(value) == 'table' then
+      if content[key] == nil then
+        _G.logger:info(nameOfModule .. ": Created missing parameters table '" .. tostring(key) .. "'")
+        content[key] = {}
+      end
+      content[key] = checkParameters(content[key], defaultTable[key])
+    elseif content[key] == nil then
+      _G.logger:info(nameOfModule .. ": Missing parameter '" .. tostring(key) .. "'. Adding default value '" .. tostring(defaultTable[key]) .. "'")
+      content[key] = defaultTable[key]
+    end
+  end
+  return content
+end
+funcs.checkParameters = checkParameters
 
 return funcs
 
