@@ -15,6 +15,90 @@ local function runOperator(instance)
   local result
   if parameters[instance]['logic'] == 'EQUAL' then
     result = tostring(parameters[instance]['values']['1']) == parameters[instance]['criteria']['1']
+
+  elseif parameters[instance]['logic'] == 'ADD' then
+    if parameters[instance]['values']['1'] ~= '' and parameters[instance]['values']['2'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['values']['2'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 + val2
+      end
+    elseif parameters[instance]['values']['1'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['criteria']['1'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 + val2
+      end
+    end
+
+  elseif parameters[instance]['logic'] == 'SUBTRACT' then
+    if parameters[instance]['values']['1'] ~= '' and parameters[instance]['values']['2'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['values']['2'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 + val2
+      end
+    elseif parameters[instance]['values']['1'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['criteria']['1'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 - val2
+      end
+    end
+
+  elseif parameters[instance]['logic'] == 'MULTIPLY' then
+    if parameters[instance]['values']['1'] ~= '' and parameters[instance]['values']['2'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['values']['2'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 + val2
+      end
+    elseif parameters[instance]['values']['1'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['criteria']['1'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 * val2
+      end
+    end
+
+  elseif parameters[instance]['logic'] == 'DIVIDE' then
+    if parameters[instance]['values']['1'] ~= '' and parameters[instance]['values']['2'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['values']['2'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 + val2
+      end
+    elseif parameters[instance]['values']['1'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['criteria']['1'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 / val2
+      end
+    end
+
+  elseif parameters[instance]['logic'] == 'FLOOR' then
+    if parameters[instance]['values']['1'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      if val1 ~= nil then
+        local roundingValue = tonumber(parameters[instance]['criteria']['1'])
+        if roundingValue ~= nil and roundingValue >= 1 then
+          result = true
+          parameters[instance]['values']['1'] = math.floor(val1*10^roundingValue+0.5)/10^roundingValue
+        else
+          result = true
+          parameters[instance]['values']['1'] = math.floor(val1+0.5)
+        end
+      end
+    end
+
   elseif parameters[instance]['logic'] == 'AND' then
     if type(parameters[instance]['values']['1']) == 'boolean' and type(parameters[instance]['values']['2']) == 'boolean' then
       result = parameters[instance]['values']['1'] and parameters[instance]['values']['2']
@@ -60,6 +144,20 @@ local function runOperator(instance)
   elseif parameters[instance]['logic'] == 'LESS_EQUAL' then
     if type(parameters[instance]['values']['1']) == 'number' then
       result = parameters[instance]['values']['1'] <= tonumber(parameters[instance]['criteria']['1'])
+    end
+  elseif parameters[instance]['logic'] == 'FALLING_EDGE' then
+    if type(parameters[instance]['values']['1']) == 'boolean' then
+      if parameters[instance]['values']['1'] == false then
+        if parameters[instance]['values']['2'] == true then
+          result = true
+        else
+          result = false
+        end
+        parameters[instance]['values']['2'] = false
+      else
+        result = false
+        parameters[instance]['values']['2'] = true
+      end
     end
   elseif parameters[instance]['logic'] == 'RISING_EDGE' then
     if type(parameters[instance]['values']['1']) == 'boolean' then
@@ -107,7 +205,7 @@ local function runOperator(instance)
   if result == nil then
     _G.logger:warning("CSK_FlowConfig: Error within operartor")
   else
-    if parameters[instance]['logic'] == 'RISING_EDGE' then
+    if parameters[instance]['logic'] == 'RISING_EDGE' or parameters[instance]['logic'] == 'FALLING_EDGE' then
       if result == true then
         Script.notifyEvent(parameters[instance]['event'], true)
       end
@@ -116,7 +214,7 @@ local function runOperator(instance)
     end
 
     if result == true then
-      if parameters[instance]['logic'] == 'EQUAL' or parameters[instance]['logic'] == 'GREATER' or parameters[instance]['logic'] == 'GREATER_EQUAL' or parameters[instance]['logic'] == 'SMALLER' or parameters[instance]['logic'] == 'SMALLER_EQUAL' or parameters[instance]['logic'] == 'WITHIN_RANGE' or parameters[instance]['logic'] == 'OUT_OF_RANGE' or parameters[instance]['logic'] == 'CHANGED' or parameters[instance]['logic'] == 'TO_NUMBER' or parameters[instance]['logic'] == 'TO_STRING' then
+      if parameters[instance]['logic'] == 'EQUAL' or parameters[instance]['logic'] == 'GREATER' or parameters[instance]['logic'] == 'GREATER_EQUAL' or parameters[instance]['logic'] == 'SMALLER' or parameters[instance]['logic'] == 'SMALLER_EQUAL' or parameters[instance]['logic'] == 'WITHIN_RANGE' or parameters[instance]['logic'] == 'OUT_OF_RANGE' or parameters[instance]['logic'] == 'CHANGED' or parameters[instance]['logic'] == 'TO_NUMBER' or parameters[instance]['logic'] == 'TO_STRING' or parameters[instance]['logic'] == 'ADD' or parameters[instance]['logic'] == 'SUBTRACT' or parameters[instance]['logic'] == 'MULTIPLY' or parameters[instance]['logic'] == 'DIVIDE' or parameters[instance]['logic'] == 'FLOOR' then
         Script.notifyEvent(parameters[instance]['forwardEvent'], parameters[instance]['values']['1'])
       end
     end
@@ -124,7 +222,7 @@ local function runOperator(instance)
 
   if parameters[instance]['logic'] ~= 'AND_PREV' and parameters[instance]['logic'] ~= 'OR_PREV' then
     parameters[instance]['values']['1'] = ''
-    if parameters[instance]['logic'] ~= 'RISING_EDGE' then
+    if parameters[instance]['logic'] ~= 'RISING_EDGE' and parameters[instance]['logic'] ~= 'FALLING_EDGE' then
       parameters[instance]['values']['2'] = ''
     end
   end
@@ -156,7 +254,7 @@ local function addLogicBlock(instance, logic, source1, source2, criteriaA, crite
     parameters[instance]['values']['1'] = ''
     parameters[instance]['values']['2'] = ''
 
-    if logic == 'RISING_EDGE' then
+    if logic == 'RISING_EDGE' or logic  == 'FALLING_EDGE' then
       parameters[instance]['values']['2'] = false
     end
 

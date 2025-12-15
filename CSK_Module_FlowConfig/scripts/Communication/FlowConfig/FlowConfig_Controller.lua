@@ -20,11 +20,6 @@ local tmrFlowConfigInitialSetup = Timer.create()
 tmrFlowConfigInitialSetup:setExpirationTime(200)
 tmrFlowConfigInitialSetup:setPeriodic(false)
 
--- Timer to trigger value in flow
-local triggerTimer = Timer.create()
-triggerTimer:setExpirationTime(100)
-triggerTimer:setPeriodic(false)
-
 -- Timer to hide UI message
 local tmrUIMessage = Timer.create()
 tmrUIMessage:setExpirationTime(3000)
@@ -42,7 +37,6 @@ Script.serveEvent('CSK_FlowConfig.OnExpired_TYPE_TIME_VALUE', 'FlowConfig_OnExpi
 Script.serveEvent('CSK_FlowConfig.OnNewLogicResult_ID', 'FlowConfig_OnNewLogicResult_ID')
 Script.serveEvent('CSK_FlowConfig.OnNewValueToForward_ID', 'FlowConfig_OnNewValueToForward_ID')
 
-Script.serveEvent('CSK_FlowConfig.OnNewValue', 'FlowConfig_OnNewValue')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusModuleVersion', 'FlowConfig_OnNewStatusModuleVersion')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusCSKStyle', 'FlowConfig_OnNewStatusCSKStyle')
 Script.serveEvent('CSK_FlowConfig.OnNewStatusModuleIsActive', 'FlowConfig_OnNewStatusModuleIsActive')
@@ -54,6 +48,9 @@ Script.serveEvent('CSK_FlowConfig.OnNewStatusInfoToggle', 'FlowConfig_OnNewStatu
 Script.serveEvent('CSK_FlowConfig.OnNewStatusShowInfoOnPageReload', 'FlowConfig_OnNewStatusShowInfoOnPageReload')
 
 Script.serveEvent('CSK_FlowConfig.OnNewStatusSaveMode', 'FlowConfig_OnNewStatusSaveMode')
+
+Script.serveEvent('CSK_FlowConfig.OnNewStatusListOfAvailableFeatures', 'FlowConfig_OnNewStatusListOfAvailableFeatures')
+Script.serveEvent('CSK_FlowConfig.OnNewStatusListOfActiveFeatures', 'FlowConfig_OnNewStatusListOfActiveFeatures')
 
 Script.serveEvent('CSK_FlowConfig.OnNewFlowConfig', 'FlowConfig_OnNewFlowConfig')
 Script.serveEvent('CSK_FlowConfig.OnClearOldFlow', 'FlowConfig_OnClearOldFlow')
@@ -151,6 +148,9 @@ local function handleOnExpiredTmrFlowConfig()
   Script.notifyEvent("FlowConfig_OnNewStatusCSKStyle", flowConfig_Model.styleForUI)
   Script.notifyEvent("FlowConfig_OnNewStatusModuleIsActive", _G.availableAPIs.default and _G.availableAPIs.specific)
 
+  Script.notifyEvent("FlowConfig_OnNewStatusListOfAvailableFeatures", flowConfig_Model.helperFuncs.createJsonList(flowConfig_Model.availableFeatures))
+  Script.notifyEvent("FlowConfig_OnNewStatusListOfActiveFeatures", flowConfig_Model.helperFuncs.createJsonList(flowConfig_Model.parameters.activeFlowConfigFeatures))
+
   Script.notifyEvent("FlowConfig_OnNewStatusSaveMode", flowConfig_Model.saveMode)
 
   Script.notifyEvent("FlowConfig_OnNewManifest", flowConfig_Model.manifest)
@@ -198,46 +198,24 @@ local function getFlow(flow)
 end
 Script.serveFunction('CSK_FlowConfig.getFlow', getFlow)
 
-local function setTriggerValue(value, cycleTime)
-  _G.logger:fine(nameOfModule .. ': Set trigger value to: ' .. tostring(value))
-  flowConfig_Model.triggerValue = value
-
-  if cycleTime == 0 then
-    triggerTimer:setExpirationTime(100)
-    triggerTimer:setPeriodic(false)
-  else
-    triggerTimer:setExpirationTime(cycleTime)
-    triggerTimer:setPeriodic(true)
-  end
-end
-Script.serveFunction('CSK_FlowConfig.setTriggerValue', setTriggerValue)
-Script.register('CSK_FlowConfig.OnNewStatusTriggerValue', setTriggerValue)
-
--- Function to provide new data in FlowConfig as soon as internal timer was expired
-local function handleOnExpiredTriggerTimer()
-  Script.notifyEvent('FlowConfig_OnNewValue', flowConfig_Model.triggerValue, DateTime.getTimestamp())
-end
-Timer.register(triggerTimer, 'OnExpired', handleOnExpiredTriggerTimer)
-
 local function openUI(nameOfBlock)
-  if nameOfBlock == 'FlowConfig_FC.OnNewValue.OnNewValue' or nameOfBlock == 'FlowConfig_FC.OnExpired.OnExpired' or nameOfBlock == 'FlowConfig_FC.ProcessLogic.processLogic' then
+  if nameOfBlock == 'FlowConfig_FC.OnExpired.OnExpired' or nameOfBlock == 'FlowConfig_FC.ProcessLogic.processLogic' then
     Script.notifyEvent("FlowConfig_OnNewStatusFlowActiveUIInfo", 'noUI')
     tmrUIMessage:start()
   end
 end
 Script.serveFunction('CSK_FlowConfig.openUI', openUI)
 
--- Function to start Timer to provide values within FlowConfig
-local function handleNewFlow()
-  triggerTimer:start()
+local function setActiveFeature(featureList)
+  flowConfig_Model.parameters.activeFlowConfigFeatures = {}
+  flowConfig_Model.parameters.activeFlowConfigFeatures['FlowConfig'] = 'FlowConfig'
+  for key, value in pairs(featureList) do
+    flowConfig_Model.parameters.activeFlowConfigFeatures[value] = value
+  end
+  flowConfig_Model.manifest = flowConfig_Model.buildManifest()
+  Script.notifyEvent("FlowConfig_OnNewManifest", flowConfig_Model.manifest)
 end
-Script.register('CSK_FlowConfig.OnNewFlowConfig', handleNewFlow)
-
-local function stopTriggerTimer()
-  triggerTimer:stop()
-end
-Script.serveFunction('CSK_FlowConfig.stopTriggerTimer', stopTriggerTimer)
-Script.register('CSK_FlowConfig.OnStopFlowConfigProviders', stopTriggerTimer)
+Script.serveFunction('CSK_FlowConfig.setActiveFeature', setActiveFeature)
 
 local function saveAllModuleConfigs()
   if flowConfig_Model.saveAllPersistentDataAvailable then
@@ -396,6 +374,8 @@ local function loadParameters()
     if data then
       _G.logger:info(nameOfModule .. ": Loaded parameters from CSK_PersistentData module.")
       flowConfig_Model.parameters = flowConfig_Model.helperFuncs.convertContainer2Table(data)
+      flowConfig_Model.parameters = flowConfig_Model.helperFuncs.checkParameters(flowConfig_Model.parameters, flowConfig_Model.helperFuncs.defaultParameters.getParameters())
+      flowConfig_Model.manifest = flowConfig_Model.buildManifest()
 
       -- If something needs to be configured/activated with new loaded data, place this here:
       if flowConfig_Model.parameters.flow ~= nil and flowConfig_Model.parameters.flow ~= '' then
@@ -463,7 +443,6 @@ Script.serveFunction('CSK_FlowConfig.getParameters', getParameters)
 
 local function resetModule()
   if _G.availableAPIs.default and _G.availableAPIs.specific then
-    stopTriggerTimer()
     flowConfig_Model.currentFlow = Flow.create()
     pageCalled()
   end

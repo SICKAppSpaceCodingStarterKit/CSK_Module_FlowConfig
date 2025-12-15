@@ -34,6 +34,12 @@ Check the UI of this CSK module to configure the system. +</desc>
                 <item desc="Check if value changed from FALSE to TRUE." name="RISING_EDGE">RISING_EDGE</item>
                 <item desc="Convert string value to number." name="TO_NUMBER">TO_NUMBER</item>
                 <item desc="Convert data to STRING." name="TO_STRING">TO_STRING</item>
+                <item desc="Multiply value of sourceA with sourceB or criteriaA." name="MULTIPLY">MULTIPLY</item>
+                <item desc="Round value of sourceA down to the nearest integer." name="FLOOR">FLOOR</item>
+                <item desc="Add value of sourceA to sourceB or criteriaA." name="ADD">ADD</item>
+                <item desc="Subtract sourceB or criteriaA. from sourceA." name="SUBTRACT">SUBTRACT</item>
+                <item desc="Divide sourceA by sourceB or criteriaA." name="DIVIDE">DIVIDE</item>
+                <item desc="Check if value changed from TRUE to FALSE." name="FALLING_EDGE">FALLING_EDGE</item>
             </enum>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
@@ -80,16 +86,6 @@ Check the UI of this CSK module to configure the system. +</desc>
                 </event>
                 <event name="OnNewFlowConfig">
                     <desc>Notify that new FlowConfig is available so that related modules can use it.</desc>
-                </event>
-                <event name="OnNewValue">
-                    <desc>Notify test value to trigger / debug FlowConfig</desc>
-                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
-                    <param desc="Timestamp" multiplicity="1" name="timestamp" type="int"/>
-                </event>
-                <event name="OnNewStatusTriggerValue">
-                    <desc>Notify update for trigger value</desc>
-                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
-                    <param desc="Cycle time in ms (0 if single trigger)." multiplicity="1" name="cycleTime" type="int"/>
                 </event>
                 <event name="OnNewStatusSaveAllModulesAvailable">
                     <desc>Notfiy if CSK_PersistentData module provides the feature to save all configs.</desc>
@@ -154,6 +150,14 @@ INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +
                 <event name="OnStopFlowConfigProviders">
                     <desc>Notify event to stop FlowConfig relevant providers.</desc>
                 </event>
+                <event name="OnNewStatusListOfAvailableFeatures">
+                    <desc>Notify available features to use in FlowConfig.</desc>
+                    <param desc="Available features." multiplicity="1" name="availableFeatures" type="string"/>
+                </event>
+                <event name="OnNewStatusListOfActiveFeatures">
+                    <desc>Notify list of currently active FlowConfig featuers.</desc>
+                    <param desc="List of currently active features." multiplicity="1" name="activeFeatures" type="string"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
@@ -177,11 +181,6 @@ INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +
                 <function name="openUI">
                     <desc>Function to get the trigger to open block UI.</desc>
                     <param desc="Name of block related CROWN" multiplicity="1" name="nameOfBlock" type="string"/>
-                </function>
-                <function name="setTriggerValue">
-                    <desc>Function to set trigger value to send via 'OnNewValue' event.</desc>
-                    <param desc="Value" multiplicity="1" name="value" type="auto"/>
-                    <param desc="Cycle time in ms ('0' if single trigger)" multiplicity="1" name="cycleTime" type="int"/>
                 </function>
                 <function name="saveAllModuleConfigs">
                     <desc>Function to trigger all CSK modules to save their configuration via CSK_PersistentData module and additionally activate their "Load config on app start"  flag.</desc>
@@ -251,6 +250,10 @@ INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +
                 <function name="stopFlowProviders">
                     <desc>Function to trigger event to stop FlowConfig relevant providers.</desc>
                 </function>
+                <function name="setActiveFeature">
+                    <desc>Function to set features to be available for the FlowConfig.</desc>
+                    <param desc="List of features." multiplicity="+" name="featureList" type="string"/>
+                </function>
             </serves>
         </crown>
         <crown name="FlowConfig_FC">
@@ -263,37 +266,6 @@ INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +
                 <item desc="Bool" name="BOOL">BOOL</item>
             </enum>
             <serves/>
-            <crown name="OnNewValue">
-                <trait>released</trait>
-                <desc>DEPRECATED - Use 'OnExpired' block instead.
-Provide values. Especially helpful for testing purposes.</desc>
-                <serves>
-                    <event name="OnNewValue">
-                        <include>data-flow</include>
-                        <desc>DEPRECATED - Use 'OnExpired' block instead.
-Provide values. Especially helpful for testing purposes.
-Will send current timestamp as 2nd parameter.</desc>
-                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
-                        <param desc="'CSK_FlowConfig.OnNewValue'&#10;&#10;Parameter:&#10;1: Value (STRING or NUMBER or BOOL)&#10;2: Timestamp (INT)" multiplicity="1" name="OnNewValue" type="string"/>
-                    </event>
-                    <function name="create">
-                        <trait>released</trait>
-                        <desc>Internally used CSK_FlowConfig create function.</desc>
-                        <param desc="Value to send via event.&#10;For 'BOOL' values use &quot;true&quot; or &quot;false&quot;" multiplicity="1" name="Value" type="string"/>
-                        <param desc="Type of value to send." multiplicity="1" name="ValueType" ref="FlowConfig_FC.ValueType" type="enum"/>
-                        <param desc="Cycle time in ms ('0' for single trigger)" multiplicity="1" name="CycleTime" type="int"/>
-                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
-                    </function>
-                    <function name="register">
-                        <trait>released</trait>
-                        <desc>Internally used CSK_FlowConfig register function.</desc>
-                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
-                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
-                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
-                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
-                    </function>
-                </serves>
-            </crown>
             <crown name="OnExpired">
                 <trait>released</trait>
                 <desc>Periodically notify values. Especially helpful for testing purposes.
@@ -345,9 +317,51 @@ Will send current timestamp as 2nd parameter.</desc>
                     </function>
                 </serves>
             </crown>
+            <crown name="OnEvent">
+                <trait>released</trait>
+                <desc>Set existing event to use as trigger for further processing.</desc>
+                <serves>
+                    <event name="OnEvent">
+                        <include>data-flow</include>
+                        <desc>Set existing event to use as trigger for further processing.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Parameter:&#10;1: CUSTOM (see docu of set event)&#10;...&#10;" multiplicity="1" name="OnExpired" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Name of existing event to use as trigger." multiplicity="1" name="Event" type="string"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="NotifyEvent">
+                <desc>Create a custom event to forward incoming data.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Name of event (full name will be 'CSK_FlowConfig.[EventName]')." multiplicity="1" name="EventName" type="string"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="notifyEvent">
+                        <include>data-flow</include>
+                        <desc>Create a custom event to forward incoming data.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Source of data to forward its data via 'CSK_FlowConfig.[EventName]'&#10;&#10;Parameter:&#10;1: (optional) AUTO&#10;2: (optional) AUTO&#10;3: (optional) AUTO&#10;4: (optional) AUTO" multiplicity="1" name="source" type="string"/>
+                    </function>
+                </serves>
+            </crown>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">1.4.0</meta>
+        <meta key="version">2.0.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

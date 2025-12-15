@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Release 2.0.0
+- Removed deprecated block "OnNewValue" (was replaced by "OnExpired")
+
+### New features
+- New blocks "OnEvent" and "NotifyEvent"
+- Selectable which blocks to show in flow editor (to focus on specific use cases)
+- Check if persistent data to load provides all relevant parameters. Otherwise add default values
+
+### Improvement
+- Added features "ADD", "SUBTRACT", "MULTIPLY", "DIVIDE", "FLOOR", "FALLING_EDGE" to logic operator block
+- Updated demo flows
+
 ## Release 1.4.0
 
 ### Improvement

@@ -47,15 +47,15 @@ end
 flowConfig_Model.showInfoOnUI = Parameters.get('FlowConfig_ShowImportantInformation') -- Show information about FlowConfig at UI page reload
 flowConfig_Model.flowPath = "private/flow.dflow" -- Path to flow file
 flowConfig_Model.manifest = '' -- Created manifest of features to provide within BlocksEditor by other CSK modules
-flowConfig_Model.triggerValue = '' -- Value to notify within 'OnNewStatusTriggerValue' event
 flowConfig_Model.demoFlow = '' -- Selected DemoFlow to load
 flowConfig_Model.styleForUI = 'None' -- Optional parameter to set UI style
 flowConfig_Model.version = Engine.getCurrentAppVersion() -- Version of module
 flowConfig_Model.saveMode = 'MODULE' -- Method to save if 'Save' button is pressed: 'MODULE', 'FLOW', 'ALL'
+flowConfig_Model.availableFeatures = {} -- Available FlowConfig features
 
 -- Parameters to be saved permanently if wanted
 flowConfig_Model.parameters = {}
-flowConfig_Model.parameters.flow = '' -- FlowConfig data
+flowConfig_Model.parameters = flowConfig_Model.helperFuncs.defaultParameters.getParameters() -- Load default parameters
 
 --**************************************************************************
 --********************** End Global Scope **********************************
@@ -69,6 +69,35 @@ local function handleOnStyleChanged(theme)
   Script.notifyEvent("FlowConfig_OnNewStatusCSKStyle", flowConfig_Model.styleForUI)
 end
 Script.register('CSK_PersistentData.OnNewStatusCSKStyle', handleOnStyleChanged)
+
+local function getAvailableFeatures()
+  flowConfig_Model.availableFeatures = {}
+
+  local flowCrowns = Engine.getCrowns()
+  for key, value in pairs(flowCrowns) do
+
+    -- Check if CROWN is relevant for module links
+    local _, posSubCrown = string.find(value, '_FC.')
+    local _, posMainCrown = string.find(value, '_FC')
+
+    if posMainCrown == #value or posSubCrown then
+      local crownName = string.sub(value, 1, posMainCrown)
+      local crownNameWithoutFC = string.sub(value, 1, posMainCrown-3)
+      local moduleNameToCheck = 'CSK_' .. string.sub(crownName, 1, #crownName-3) .. '.getStatusModuleActive'
+      local _, moduleStatus = Script.callFunction(moduleNameToCheck) -- check if module is active on device
+      local content = Engine.getCrownAsXML(value)
+
+      if content and (moduleStatus == nil or moduleStatus == true) then
+        if not flowConfig_Model.availableFeatures[crownNameWithoutFC] then
+          flowConfig_Model.availableFeatures[crownNameWithoutFC] = crownNameWithoutFC
+
+          flowConfig_Model.parameters.activeFlowConfigFeatures[crownNameWithoutFC] = crownNameWithoutFC
+        end
+      end
+    end
+  end
+end
+getAvailableFeatures()
 
 -- Building manifest file for editor based on snippets retrieved from the engine for every served block which
 -- should be available in the editor
@@ -92,11 +121,19 @@ local function buildManifest()
     if posMainCrown == #value or posSubCrown then
       local crownName = string.sub(value, 1, posMainCrown)
       local moduleNameToCheck = 'CSK_' .. string.sub(crownName, 1, #crownName-3) .. '.getStatusModuleActive'
+      local crownNameWithoutFC = string.sub(crownName, 1, #crownName-3)
 
-      local _, moduleStatus = Script.callFunction(moduleNameToCheck) -- check if module is active on device
+      local moduleStatus
+
+      if moduleNameToCheck ~= 'CSK_RecipeManager.getStatusModuleActive' then
+        _, moduleStatus = Script.callFunction(moduleNameToCheck) -- check if module is active on device
+      else
+        moduleStatus = true
+      end
+
       local content = Engine.getCrownAsXML(value)
 
-      if content then
+      if content and flowConfig_Model.parameters.activeFlowConfigFeatures[crownNameWithoutFC] then
 
         if moduleStatus == nil or moduleStatus == true then
 
