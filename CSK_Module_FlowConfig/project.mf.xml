@@ -37,7 +37,7 @@ Check the UI of this CSK module to configure the system. +</desc>
                 <item desc="Multiply value of sourceA with sourceB or criteriaA." name="MULTIPLY">MULTIPLY</item>
                 <item desc="Round value of sourceA down to the nearest integer." name="FLOOR">FLOOR</item>
                 <item desc="Add value of sourceA to sourceB or criteriaA." name="ADD">ADD</item>
-                <item desc="Subtract sourceB or criteriaA. from sourceA." name="SUBTRACT">SUBTRACT</item>
+                <item desc="Subtract sourceB or criteriaA. from sourceA.&#10;If only sourceB is set, it will subtract value of sourceB from criteriaA." name="SUBTRACT">SUBTRACT</item>
                 <item desc="Divide sourceA by sourceB or criteriaA." name="DIVIDE">DIVIDE</item>
                 <item desc="Check if value changed from TRUE to FALSE." name="FALLING_EDGE">FALLING_EDGE</item>
             </enum>
@@ -254,6 +254,11 @@ INFO: Other modules can check via "Script.isServedAsFunction" if event exists. +
                     <desc>Function to set features to be available for the FlowConfig.</desc>
                     <param desc="List of features." multiplicity="+" name="featureList" type="string"/>
                 </function>
+                <function name="addDelayBlock">
+                    <desc>Function to register to an event and to forward its data content with a delay.</desc>
+                    <param desc="Event to forward data." multiplicity="1" name="sourceEvent" type="string"/>
+                    <param desc="Delay in ms." multiplicity="1" name="delay" type="int"/>
+                </function>
             </serves>
         </crown>
         <crown name="FlowConfig_FC">
@@ -301,7 +306,7 @@ Will send current timestamp as 2nd parameter.</desc>
                 <serves>
                     <function name="create">
                         <desc>Internally used CSK_FlowConfig create function.</desc>
-                        <param constraint="1-99" desc="Type of logic operator.&#10;&#10;AND&#10;valueA AND valueB&#10;AND_PREV&#10;valueA AND valueB (keep previous status)&#10;CHANGED&#10;valueA =! previous valueA&#10;EQUAL&#10;valueA == critieraA&#10;GREATER&#10;valueA &gt; criteriaA&#10;GREATER_EQUAL&#10;valueA &gt;= criteriaA&#10;INVERT&#10;not valueA&#10;LESS&#10;valueA &lt; criteriaA&#10;LESS_EQUAL&#10;valueA &lt;= criteriaA&#10;OR&#10;valueA OR valueB&#10;OR_PREV&#10;valueA OR valueB (keep previous status)&#10;OUT_OF_RANGE&#10;valueA &lt; critieriaA OR valueA &gt; critieriaB&#10;RISING_EDGE&#10;valueA == TRUE (was FALSE before)&#10;WITHIN_RANGE&#10;criteriaA &gt;= valueA &lt;= critieriaB" multiplicity="1" name="Logic" ref="CSK_FlowConfig.LogicOperator" type="enum"/>
+                        <param constraint="1-99" desc="Type of logic operator.&#10;&#10;ADD&#10;valueA + valueB&#10;AND&#10;valueA AND valueB&#10;AND_PREV&#10;valueA AND valueB (keep previous status)&#10;CHANGED&#10;valueA =! previous valueA&#10;DIVIDE&#10;valueA / valueB&#10;EQUAL&#10;valueA == critieraA&#10;FALLING_EDGE&#10;valueA == FALSE (was TRUE before)&#10;FLOOR&#10;round valueA&#10;GREATER&#10;valueA &gt; criteriaA&#10;GREATER_EQUAL&#10;valueA &gt;= criteriaA&#10;INVERT&#10;not valueA&#10;LESS&#10;valueA &lt; criteriaA&#10;LESS_EQUAL&#10;valueA &lt;= criteriaA&#10;MULTIPLY&#10;valueA * valueB&#10;OR&#10;valueA OR valueB&#10;OR_PREV&#10;valueA OR valueB (keep previous status)&#10;OUT_OF_RANGE&#10;valueA &lt; critieriaA OR valueA &gt; critieriaB&#10;RISING_EDGE&#10;valueA == TRUE (was FALSE before)&#10;SUBTRACT&#10;valueA - valueB OR valueA - criteriaA OR criteriaA - valueB&#10;TO_NUMBER&#10;tonumber(valueA)&#10;TO_STRING&#10;tostring(valueA)&#10;WITHIN_RANGE&#10;criteriaA &gt;= valueA &lt;= critieriaB" multiplicity="1" name="Logic" ref="CSK_FlowConfig.LogicOperator" type="enum"/>
                         <param desc="Optional criteriaA (see info of logic)." multiplicity="?" name="criteriaA" type="string"/>
                         <param desc="Optional criteriaB (see info of logic)." multiplicity="?" name="criteriaB" type="string"/>
                         <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
@@ -359,9 +364,26 @@ Will send current timestamp as 2nd parameter.</desc>
                     </function>
                 </serves>
             </crown>
+            <crown name="Delay">
+                <desc>Forward incoming data with a delay.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Delay in ms." multiplicity="1" name="delay" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="delay">
+                        <include>data-flow</include>
+                        <desc>Forward incoming data with a delay.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Set source to forward with delay.&#10;&#10;Parameter:&#10;1: (optional) Data (AUTO)" multiplicity="1" name="source" type="string"/>
+                        <return desc="Forward value after delay.&#10;'CSK_FlowConfig.[SOURCE_EVENT]_Delay[TIME]'&#10;(SOURCE_EVENT and TIME are set internally)&#10;&#10;Parameter:&#10;1: (optional) Data (AUTO)" multiplicity="1" name="OnNewValueToForward" type="string"/>
+                    </function>
+                </serves>
+            </crown>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">2.0.0</meta>
+        <meta key="version">2.1.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
