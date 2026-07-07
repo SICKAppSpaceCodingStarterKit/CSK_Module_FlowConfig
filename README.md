@@ -37,6 +37,7 @@ UI sources are not included in this repository.
 Tested on:
 |Device|Firmware|Module version|
 |--|--|--|
+|SIM300|V1.2.0|V2.1.0|
 |SIM300|V1.1.0|V2.0.0|
 |SIM300|V1.1.0|V1.4.0|
 |SIM300|V1.1.0|V1.3.1|

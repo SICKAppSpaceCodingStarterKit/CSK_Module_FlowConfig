@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Release 2.1.0
+
+### New features
+- Added "delay"-block to forward incoming data after a specific time
+
+### Improvement
+- Extended SUBTRACT logic
+
+### Bugfixes
+- Error in "SUBTRACT", "AND_PREV" and "OR_PREV" logic
+
 ## Release 2.0.0
 - Removed deprecated block "OnNewValue" (was replaced by "OnExpired")
 

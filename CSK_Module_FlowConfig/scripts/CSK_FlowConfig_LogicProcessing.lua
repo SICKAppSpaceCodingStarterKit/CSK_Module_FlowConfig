@@ -39,9 +39,23 @@ local function runOperator(instance)
       local val2 = tonumber(parameters[instance]['values']['2'])
       if val1 ~= nil and val2 ~= nil then
         result = true
-        parameters[instance]['values']['1'] = val1 + val2
+        parameters[instance]['values']['1'] = val1 - val2
       end
-    elseif parameters[instance]['values']['1'] ~= '' then
+    elseif parameters[instance]['values']['2'] ~= '' and parameters[instance]['criteria']['1'] ~= '' then
+      local val1 = tonumber(parameters[instance]['criteria']['1'])
+      local val2 = tonumber(parameters[instance]['values']['2'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 - val2
+      end
+    elseif parameters[instance]['values']['1'] ~= '' and parameters[instance]['criteria']['2'] ~= '' then
+      local val1 = tonumber(parameters[instance]['values']['1'])
+      local val2 = tonumber(parameters[instance]['criteria']['2'])
+      if val1 ~= nil and val2 ~= nil then
+        result = true
+        parameters[instance]['values']['1'] = val1 - val2
+      end
+    elseif parameters[instance]['values']['1'] ~= '' and parameters[instance]['criteria']['1'] ~= '' then
       local val1 = tonumber(parameters[instance]['values']['1'])
       local val2 = tonumber(parameters[instance]['criteria']['1'])
       if val1 ~= nil and val2 ~= nil then
@@ -281,29 +295,30 @@ local function addLogicBlock(instance, logic, source1, source2, criteriaA, crite
       Script.serveEvent("CSK_FlowConfig." .. parameters[instance]['forwardEvent'], parameters[instance]['forwardEvent'], 'auto')
     end
 
-  local setFunctions = {}
-  for i = 1, 2 do
-    local function setParameter(value)
-      parameters[instance]['values'][tostring(i)] = value
-      if parameters[instance]['checkMultiValues'] then
-        checkForAllParameters(instance)
-      else
-        runOperator(instance)
+    local setFunctions = {}
+    for i = 1, 2 do
+      local function setParameter(value)
+        parameters[instance]['values'][tostring(i)] = value
+        if parameters[instance]['checkMultiValues'] then
+          checkForAllParameters(instance)
+        else
+          runOperator(instance)
+        end
       end
+      table.insert(setFunctions, setParameter)
     end
-    table.insert(setFunctions, setParameter)
-  end
-  parameters[instance].setFunctions = setFunctions
+    parameters[instance].setFunctions = setFunctions
 
-  if source1 ~= '' then
-    Script.register(source1, parameters[instance].setFunctions[1])
-  end
-  if source2 ~= '' then
-    if logic ~= 'AND_PREV' and logic ~= 'OR_PREV' then
-      parameters[instance]['checkMultiValues'] = true
+    if source1 ~= '' then
+      Script.register(source1, parameters[instance].setFunctions[1])
     end
-    Script.register(source2, parameters[instance].setFunctions[2])
-  end
+
+    if source2 ~= '' then
+      if logic ~= 'AND_PREV' and logic ~= 'OR_PREV' and logic ~= 'SUBTRACT' then
+        parameters[instance]['checkMultiValues'] = true
+      end
+      Script.register(source2, parameters[instance].setFunctions[2])
+    end
 
   -- Instance already exists. Only extend event registration
   else
@@ -311,8 +326,12 @@ local function addLogicBlock(instance, logic, source1, source2, criteriaA, crite
     if source1 ~= '' and parameters[instance]['eventNames'][1] == '' then
       parameters[instance]['eventNames'][1] = source1
       Script.register(source1, parameters[instance].setFunctions[1])
-    end
-    if source2 ~= '' and parameters[instance]['eventNames'][2] == '' then
+
+      if parameters[instance]['eventNames'][2] ~= '' and logic ~= 'AND_PREV' and logic ~= 'OR_PREV' then
+        parameters[instance]['checkMultiValues'] = true
+      end
+
+    elseif source2 ~= '' and parameters[instance]['eventNames'][2] == '' then
       if logic ~= 'AND_PREV' and logic ~= 'OR_PREV' then
         parameters[instance]['checkMultiValues'] = true
       end
